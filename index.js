@@ -1,9 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import workoutsRouters from './routes/workout.js';
+import cors from 'cors';
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
+
+app.use(cors({origin: '*'}));
 
 app.use(bodyParser.json());
 
