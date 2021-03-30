@@ -13,31 +13,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Buttons({selected, onDelete, onAdd, onEdit}) {
+function Buttons({ selected, onDelete, onAdd, onEdit }) {
     const classes = useStyles();
 
     return (
         <div>
             <Button
-                className={classes.button} 
-                variant="contained" 
-                color="secondary" 
+                className={`${classes.button} ${classes.buttonAdd}`}
+                variant="contained"
+                onClick={onAdd}
+            >
+                Добавить
+            </Button>
+            <Button
+                className={classes.button}
+                variant="contained"
+                color="secondary"
                 onClick={onDelete}
                 disabled={selected.length === 0 ? true : false}
             >
                 Удалить
             </Button>
-            <Button 
-                className={`${classes.button} ${classes.buttonAdd}`} 
-                variant="contained" 
-                onClick={onAdd}
-            >
-                Добавить
-            </Button>
-            <Button 
-                className={classes.button} 
-                variant="contained" 
-                color="primary" 
+
+            <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
                 onClick={onEdit}
                 disabled={selected.length === 0 ? true : false}
             >

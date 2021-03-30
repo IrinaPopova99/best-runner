@@ -5,7 +5,7 @@ import Filter from './Filter/Filter';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    actions: {
+    action: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -18,13 +18,13 @@ function Actions({selected, onDelete, onAdd, onEdit}) {
     const classes = useStyles();
 
     return (
-        <div className={classes.actions}>
+        <div className={classes.action}>
                 <div>
                     <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
                 </div>
-                <div>
-                    <Sort />
-                    <Filter />
+                <div className={classes.action}>
+                    <Sort styleClass={classes.action} />
+                    <Filter styleClass={classes.action} />
                 </div>
             </div>
     )

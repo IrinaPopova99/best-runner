@@ -13,3 +13,17 @@ export const deleteWorkout = (ids) => {
             .then((res) => { return res.data; })
     );
 };
+
+export const addWorkout = (data) => {
+    return (
+        instance.post(`workout`, data)
+            .then((res) => { return res.data; })
+    );
+};
+
+export const editWorkout = (id, data) => {
+    return (
+        instance.patch(`workout/${id}`, data)
+            .then((res) => { return res.data; })
+    );
+};

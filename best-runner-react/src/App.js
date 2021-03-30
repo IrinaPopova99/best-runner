@@ -7,10 +7,10 @@ function App() {
     return (
         <>
             <Grid container spacing={3} justify="center" alignItems="center">
-                <Grid item xs={12} spacing={3}>
+                <Grid  item xs={12}>
                     <Header />
                 </Grid>
-                <Grid item xs={10} spacing={3}>
+                <Grid  item xs={10}>
                     <WorkoutsList />
                 </Grid>
             </Grid>

@@ -35,9 +35,11 @@ export const getWorkoutById = (req, res) => {
 };
 
 export const createWorkout = (req, res) => {
-    const workout = req.body;
-    workouts.push({ ...workout, id: uuid4() });
-    res.send(workouts);
+    let workout = req.body;
+    workout.date = workout.date.split('-').reverse().join('.');
+    const workoutWithId = { ...workout, id: uuid4() };
+    workouts.push(workoutWithId);
+    res.send(workoutWithId);
 }
 
 export const deleteWorkout = (req, res) => {
@@ -48,14 +50,14 @@ export const deleteWorkout = (req, res) => {
 
 export const updateWorkout = (req, res) => {
     const { id } = req.params;
-    const { data, typeWorkout, kilomatrage, comment } = req.body;
+    const { date, typeWorkout, kilometrage, comment } = req.body;
 
     const workout = workouts.find((workout) => workout.id === id);
     
-    if (data) workout.data = data;
+    if (date) workout.date = date.split('-').reverse().join('.');
     if (typeWorkout) workout.typeWorkout = typeWorkout;
-    if (kilomatrage) workout.kilomatrage = kilomatrage;
+    if (kilometrage) workout.kilometrage = kilometrage;
     if (comment) workout.comment = comment;
 
-    res.send(id);
+    res.send(workout);
 }

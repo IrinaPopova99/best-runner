@@ -12,7 +12,9 @@ import WorkoutRow from './WorkoutRow/WorkoutRow';
 import HeaderRow from './HeaderRow/HeaderRow';
 import Comment from './Comment';
 import ModalWindow from './ModalWindow/ModalWindow';
-
+import AddForm from '../WorkoutForms/AddForm';
+import EditForm from '../WorkoutForms/EditForm';
+import { useRef } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -27,15 +29,22 @@ const useStyles = makeStyles((theme) => ({
 
 function WorkoutsList() {
     const [selected, setSelected] = useState([]);
-    const [open, setOpen] = useState(false);
+    // const [selectedRow, setSelectedRow] = useState(null);
+    const selectedRow = useRef({});
     const [openComment, setOpenComment] = useState(false);
+    const [openAddForm, setOpenAddForm] = useState(false);
+    const [openEditForm, setOpenEditForm] = useState(false);
+
     const [comment, setComment] = useState('');
 
     const classes = useStyles();
-    
+
     const dispatch = useDispatch();
 
     const workouts = useSelector(state => state.workoutReducer.workouts);
+    const error = useSelector(state => state.workoutReducer.error);
+
+    if (error) alert(error);
 
     useEffect(() => {
         dispatch(getWorkoutsAll());
@@ -55,12 +64,13 @@ function WorkoutsList() {
         return selected.indexOf(id) !== -1;
     }
 
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleClick = (event, id, row = null) => {
+        const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
+        if (row) selectedRow.current.value = row;
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -77,32 +87,35 @@ function WorkoutsList() {
 
     const handleOpenComment = (comment) => {
         setComment(comment);
-        setOpen(true);
         setOpenComment(true);
     };
 
     const handleClose = () => {
         setOpenComment(false);
-        setOpen(false);    
+        setOpenAddForm(false);
+        setOpenEditForm(false);
+        selectedRow.current.value = {};
     };
 
     const onDelete = () => {
         dispatch(deleteWorkoutById(selected));
         setSelected([]);
+        selectedRow.current.value = {};
     };
 
     const onAdd = () => {
-        setOpen(true);
+        setOpenAddForm(true)
     };
 
     const onEdit = () => {
         if (selected.length > 1) {
             alert('Можно выбрать только 1 элемент')
         } else {
+            setOpenEditForm(true);
             setSelected([]);
         }
     };
-
+    console.log(selectedRow.current.value)
     return (
         <>
             <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
@@ -117,6 +130,17 @@ function WorkoutsList() {
                 </Table>
             </TableContainer>
             <ModalWindow content={<Comment comment={comment} />} open={openComment} handleClose={handleClose} />
+            <ModalWindow content={<AddForm handleClose={handleClose} />} open={openAddForm} handleClose={handleClose} />
+
+            <ModalWindow
+                content={<EditForm
+                    handleClose={handleClose}
+                    selectedRow={selectedRow.current.value}
+                />}
+                open={openEditForm}
+                handleClose={handleClose}
+            />
+
         </>
     );
 }

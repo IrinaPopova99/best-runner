@@ -2,10 +2,10 @@ import React from 'react';
 import SortIcon from '@material-ui/icons/Sort';
 import IconButton from '@material-ui/core/IconButton';
 
-function Sort() {
+function Sort({styleClass}) {
     return (
-        <div>
-            Сортировка:
+        <div className={styleClass}>
+            <div>Сортировка:</div>
             <IconButton>
                 <SortIcon fontSize="large" color="primary" />
             </IconButton>

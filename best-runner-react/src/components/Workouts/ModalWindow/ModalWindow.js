@@ -10,9 +10,18 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    paper: {
+        position: 'absolute',
+        width: '400',
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: '10px',
+        boxShadow: 'none',
+        padding: '30px',
+        outline: 'none',
+    },
 }));
 
-function ModalWindow({content, open, handleClose}) {
+function ModalWindow({ content, open, handleClose }) {
     const classes = useStyles();
 
     return (
@@ -29,7 +38,9 @@ function ModalWindow({content, open, handleClose}) {
             }}
         >
             <Fade in={open}>
-                {content}
+                <div className={classes.paper}>
+                    {content}
+                </div>
             </Fade>
         </Modal>
     )

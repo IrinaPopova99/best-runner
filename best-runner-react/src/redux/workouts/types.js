@@ -1,6 +1,9 @@
 const types = {
     GET_WORKOUTS: 'GET_WORKOUTS',
     DELETE_WORKOUT: 'DELETE_WORKOUT',
+    ADD_WORKOUT: 'ADD_WORKOUT',
+    EDIT_WORKOUT: 'EDIT_WORKOUT',
+    ERROR: 'ERROR',
 };
 
 export default types;

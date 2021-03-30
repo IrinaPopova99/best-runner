@@ -5,7 +5,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-function WorkoutRow({rows, isSelected, handleClick, handleOpen}) {
+function WorkoutRow({ rows, isSelected, handleClick, handleOpen }) {
     return (
         <>
             {rows.map((row) => {
@@ -15,7 +15,7 @@ function WorkoutRow({rows, isSelected, handleClick, handleOpen}) {
                         <TableRow key={row.id}>
                             <TableCell padding="checkbox" align="center">
                                 <Checkbox
-                                    onClick={(event) => handleClick(event, row.id)}
+                                    onClick={(event) => handleClick(event, row.id, row)}
                                     selected={isItemSelected}
                                     checked={isItemSelected}
                                 />
@@ -26,9 +26,12 @@ function WorkoutRow({rows, isSelected, handleClick, handleOpen}) {
                             <TableCell align="center">{row.typeWorkout}</TableCell>
                             <TableCell align="center">{row.kilometrage}</TableCell>
                             <TableCell align="center">
-                                <IconButton edge="end" aria-label="comments" onClick={() => handleOpen(row.comment)}>
-                                    <CommentIcon />
-                                </IconButton>
+                                {row.comment !== ""
+                                    ? <IconButton edge="end" aria-label="comments" onClick={() => handleOpen(row.comment)}>
+                                        <CommentIcon />
+                                    </IconButton>
+                                    : <p>Нет</p>
+                                }
                             </TableCell>
                         </TableRow>
                     </>
