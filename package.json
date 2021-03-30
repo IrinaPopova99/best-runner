@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node __sapper__/build"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "nodemon": "^2.0.7"
   },
   "dependencies": {
+    "build": "^0.1.4",
     "cors": "^2.8.5",
     "uuid": "^8.3.2"
   }
