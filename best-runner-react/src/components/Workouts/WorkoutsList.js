@@ -3,18 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWorkoutsAll, deleteWorkoutById } from '../../redux/workouts/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
 import Actions from '../Actions/Actions';
-import WorkoutRow from './WorkoutRow/WorkoutRow';
+import TableRows from './TableRows/TableRows';
 import HeaderRow from './HeaderRow/HeaderRow';
 import Comment from './Comment';
 import ModalWindow from './ModalWindow/ModalWindow';
-import AddForm from '../WorkoutForms/AddForm';
-import EditForm from '../WorkoutForms/EditForm';
 import { useRef } from 'react';
+import CommonForm from '../WorkoutForms/CommonForm';
+import TableBody from '@material-ui/core/TableBody';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -27,15 +25,44 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function descendingComparator(a, b, orderBy) {
+    a[orderBy] = isNaN(a[orderBy]) ? a[orderBy] : +(a[orderBy]);
+    b[orderBy] = isNaN(b[orderBy]) ? b[orderBy] : +(b[orderBy]);
+
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getComparator(order, orderBy) {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+}
+
 function WorkoutsList() {
     const [selected, setSelected] = useState([]);
-    // const [selectedRow, setSelectedRow] = useState(null);
-    const selectedRow = useRef({});
     const [openComment, setOpenComment] = useState(false);
     const [openAddForm, setOpenAddForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
-
     const [comment, setComment] = useState('');
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('date');
+    const selectedRow = useRef({});
 
     const classes = useStyles();
 
@@ -56,10 +83,6 @@ function WorkoutsList() {
 
     const rows = workouts.map(workout => (createData(workout.id, workout.date, workout.typeWorkout, workout.kilometrage, workout.comment)));
 
-    // const onSelected = (id) => {
-    //     setSelected(id)
-    //     console.log(id)
-    // }
     const isSelected = (id) => {
         return selected.indexOf(id) !== -1;
     }
@@ -115,32 +138,33 @@ function WorkoutsList() {
             setSelected([]);
         }
     };
-    console.log(selectedRow.current.value)
+
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
     return (
         <>
             <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <HeaderRow />
-                    </TableHead>
+                    <HeaderRow
+                        numSelected={selected.length}
+                        order={order}
+                        orderBy={orderBy}
+                        onRequestSort={handleRequestSort}
+                        rowCount={rows.length}
+                    />
                     <TableBody>
-                        <WorkoutRow rows={rows} isSelected={isSelected} handleClick={handleClick} handleOpen={handleOpenComment} />
+                        <TableRows rows={stableSort(rows, getComparator(order, orderBy))} isSelected={isSelected} handleClick={handleClick} handleOpen={handleOpenComment} />
                     </TableBody>
                 </Table>
             </TableContainer>
             <ModalWindow content={<Comment comment={comment} />} open={openComment} handleClose={handleClose} />
-            <ModalWindow content={<AddForm handleClose={handleClose} />} open={openAddForm} handleClose={handleClose} />
-
-            <ModalWindow
-                content={<EditForm
-                    handleClose={handleClose}
-                    selectedRow={selectedRow.current.value}
-                />}
-                open={openEditForm}
-                handleClose={handleClose}
-            />
-
+            <ModalWindow content={<CommonForm handleClose={handleClose} selectedRow={selectedRow.current.value} typeForm="edit" />} open={openEditForm} handleClose={handleClose} />
+            <ModalWindow content={<CommonForm handleClose={handleClose} typeForm="add" />} open={openAddForm} handleClose={handleClose} />
         </>
     );
 }

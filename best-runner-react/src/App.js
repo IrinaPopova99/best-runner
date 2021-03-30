@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import WorkoutsList from './components/Workouts/WorkoutsList';
 import Grid from '@material-ui/core/Grid';
+import Content from './components/Content';
 
 function App() {
     return (
@@ -10,8 +11,8 @@ function App() {
                 <Grid  item xs={12}>
                     <Header />
                 </Grid>
-                <Grid  item xs={10}>
-                    <WorkoutsList />
+                <Grid  item xs={11}>
+                    <Content />
                 </Grid>
             </Grid>
 

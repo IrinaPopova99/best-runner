@@ -22,10 +22,10 @@ function Actions({selected, onDelete, onAdd, onEdit}) {
                 <div>
                     <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
                 </div>
-                <div className={classes.action}>
+                {/* <div className={classes.action}>
                     <Sort styleClass={classes.action} />
                     <Filter styleClass={classes.action} />
-                </div>
+                </div> */}
             </div>
     )
 }

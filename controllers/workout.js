@@ -4,21 +4,21 @@ let workouts = [
     {
         "id": "1m",
         "date": "12.06.2021",
-        "typeWorkout": "knfefe",
+        "typeWorkout": "Бег",
         "kilometrage": "500", 
         "comment": "1 l2f 22fыы1 2121 212 ыыa 444j"
     },
     {
         "id": "2m",
         "date": "12.06.2021",
-        "typeWorkout": "fefe",
+        "typeWorkout": "Ходьба",
         "kilometrage": "1000", 
         "comment": "1 l2f 2 444j"
     },
     {
         "id": "3m",
         "date": "02.06.2021",
-        "typeWorkout": "ss",
+        "typeWorkout": "Бег",
         "kilometrage": "100", 
         "comment": "1 2ы1 2121 212 ыыa 444j"
     }

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
 
-function WorkoutRow({ rows, isSelected, handleClick, handleOpen }) {
+function TableRows({ rows, isSelected, handleClick, handleOpen }) {
     return (
         <>
             {rows.map((row) => {
@@ -23,8 +24,8 @@ function WorkoutRow({ rows, isSelected, handleClick, handleOpen }) {
                             <TableCell align="center">
                                 {row.date}
                             </TableCell>
-                            <TableCell align="center">{row.typeWorkout}</TableCell>
                             <TableCell align="center">{row.kilometrage}</TableCell>
+                            <TableCell align="center">{row.typeWorkout}</TableCell>
                             <TableCell align="center">
                                 {row.comment !== ""
                                     ? <IconButton edge="end" aria-label="comments" onClick={() => handleOpen(row.comment)}>
@@ -41,4 +42,4 @@ function WorkoutRow({ rows, isSelected, handleClick, handleOpen }) {
     )
 }
 
-export default WorkoutRow;
+export default TableRows;
