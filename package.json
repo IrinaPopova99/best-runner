@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node __sapper__/build"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
