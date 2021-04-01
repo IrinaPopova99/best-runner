@@ -1,8 +1,7 @@
 import './App.css';
 import Header from './components/Header/Header';
-import WorkoutsList from './components/Workouts/WorkoutsList';
+import Content from './components/Workouts/Content';
 import Grid from '@material-ui/core/Grid';
-import Content from './components/Content';
 
 function App() {
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -12,7 +12,7 @@ function TableRows({ rows, isSelected, handleClick, handleOpen }) {
             {rows.map((row) => {
                 const isItemSelected = isSelected(row.id);
                 return (
-                    <>
+                    <TableBody>
                         <TableRow key={row.id}>
                             <TableCell padding="checkbox" align="center">
                                 <Checkbox
@@ -35,7 +35,7 @@ function TableRows({ rows, isSelected, handleClick, handleOpen }) {
                                 }
                             </TableCell>
                         </TableRow>
-                    </>
+                    </TableBody>
                 );
             })}
         </>

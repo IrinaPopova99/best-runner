@@ -5,7 +5,7 @@ const instance = axios.create({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH"
     },
-    baseURL: "https://nodeapptest.vercel.app/",
+    baseURL: "https://bestrunnerapp.vercel.app/workout/",
     
 })
 

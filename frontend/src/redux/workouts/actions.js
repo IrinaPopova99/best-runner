@@ -21,19 +21,46 @@ const errorAction = (error) => ({
     type: types.ERROR,
     error
 });
+const loadingAction = (isLoading) => ({
+    type: types.LOADING,
+    isLoading
+});
 
-export const getWorkoutsAll = () => dispatch => getWorkouts()
-    .then((data) => dispatch(getWorkoutsAction(data)))
-    .catch(() => dispatch(errorAction('Неполадки на сервере')));
+export const getWorkoutsAll = () => dispatch => {
+    getWorkouts()
+        .then((data) => {
+            dispatch(getWorkoutsAction(data));
+            dispatch(loadingAction(false));
+        })
+        .catch((error) => dispatch(errorAction('Неполадки на сервере')));
+}
 
-export const deleteWorkoutById = (ids) => dispatch => deleteWorkout(ids)
-    .then((data) => dispatch(deleteWorkoutsAction(data)))
-    .catch(() => dispatch(errorAction('Неполадки на сервере')));
+export const deleteWorkoutById = (ids) => dispatch => {
+    dispatch(loadingAction(true));
+    deleteWorkout(ids)
+        .then((data) => {
+            dispatch(deleteWorkoutsAction(data));
+            dispatch(loadingAction(false));
+        })
+        .catch((error) => dispatch(errorAction('Неполадки на сервере')));
+}
 
-export const addNewWorkout = (data) => dispatch => addWorkout(data)
-    .then((data) => dispatch(addWorkoutAction(data)))
-    .catch(() => dispatch(errorAction('Неполадки на сервере')));
+export const addNewWorkout = (data) => dispatch => {
+    dispatch(loadingAction(true));
+    addWorkout(data)
+        .then((data) => {
+            dispatch(addWorkoutAction(data));
+            dispatch(loadingAction(false));
+        })
+        .catch(() => dispatch(errorAction('Неполадки на сервере')));
+}
 
-export const editOneWorkout = (id, data) => dispatch => editWorkout(id, data)
-    .then((data) => dispatch(editWorkoutAction(data)))
-    .catch(() => dispatch(errorAction('Неполадки на сервере')));
+export const editOneWorkout = (id, data) => dispatch => {
+    dispatch(loadingAction(true));
+    editWorkout(id, data)
+        .then((data) => {
+            dispatch(editWorkoutAction(data));
+            dispatch(loadingAction(false));
+        })
+        .catch(() => dispatch(errorAction('Неполадки на сервере')));
+}

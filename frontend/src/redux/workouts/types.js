@@ -4,6 +4,7 @@ const types = {
     ADD_WORKOUT: 'ADD_WORKOUT',
     EDIT_WORKOUT: 'EDIT_WORKOUT',
     ERROR: 'ERROR',
+    LOADING: 'LOADING'
 };
 
 export default types;

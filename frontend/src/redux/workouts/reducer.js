@@ -2,7 +2,7 @@ import types from './types';
 
 let initialState = {
     workouts: [],
-    isLoading: false,
+    isLoading: true,
     error: null,
 };
 
@@ -29,8 +29,8 @@ export const workoutReducer = (state = initialState, action) => {
                 workouts: state.workouts.map(workout => {
                     if (workout.id === action.payload.id) {
                         return {
-                            ...workout, 
-                            id: action.payload.id, 
+                            ...workout,
+                            id: action.payload.id,
                             date: action.payload.date,
                             typeWorkout: action.payload.typeWorkout,
                             kilometrage: action.payload.kilometrage,
@@ -44,6 +44,11 @@ export const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error
+            }
+        case types.LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading
             }
         default:
             return state;

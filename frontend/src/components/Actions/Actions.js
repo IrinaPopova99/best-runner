@@ -1,8 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Buttons from './Buttons/Buttons';
-import Sort from './Sort/Sort';
-import Filter from './Filter/Filter';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     action: {
@@ -11,22 +11,22 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    
+
 }));
 
-function Actions({selected, onDelete, onAdd, onEdit}) {
+function Actions({ selected, onDelete, onAdd, onEdit }) {
     const classes = useStyles();
 
+    const isLoading = useSelector(state => state.workoutReducer.isLoading);
     return (
         <div className={classes.action}>
-                <div>
-                    <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
-                </div>
-                {/* <div className={classes.action}>
-                    <Sort styleClass={classes.action} />
-                    <Filter styleClass={classes.action} />
-                </div> */}
+            <div>
+                <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
             </div>
+            <div className={classes.action}>
+                {isLoading ? <CircularProgress /> : null}
+            </div>
+        </div>
     )
 }
 
