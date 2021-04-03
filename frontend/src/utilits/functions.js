@@ -55,31 +55,31 @@ export function weekDays() {
     return [
         {
             name: 'ПН',
-            meters: 0
+            data: 0
         },
         {
             name: 'ВТ',
-            meters: 0
+            data: 0
         },
         {
             name: 'СР',
-            meters: 0
+            data: 0
         },
         {
             name: 'ЧТ',
-            meters: 0
+            data: 0
         },
         {
             name: 'ПТ',
-            meters: 0
+            data: 0
         },
         {
             name: 'СБ',
-            meters: 0
+            data: 0
         },
         {
             name: 'ВС',
-            meters: 0
+            data: 0
         },
 
     ];
@@ -93,7 +93,7 @@ export function dateToWeeks(data) {
         if (!weeksWithData[numberWeek]) {
             weeksWithData[numberWeek] = weekDays();
         }
-        weeksWithData[numberWeek][(new Date(newDate)).getDay() - 1].meters += +item.kilometrage;
+        weeksWithData[numberWeek][(new Date(newDate)).getDay() - 1].data += +item.kilometrage;
     })
     return weeksWithData;
 }
