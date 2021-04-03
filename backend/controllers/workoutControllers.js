@@ -3,24 +3,24 @@ import { v4 as uuid4 } from 'uuid';
 let workouts = [
     {
         "id": "1m",
-        "date": "12.06.2021",
+        "date": "12.03.2021",
         "typeWorkout": "Бег",
         "kilometrage": "500", 
-        "comment": "1 l2f 22fыы1 2121 212 ыыa 444j"
+        "comment": "Комментарий к 12"
     },
     {
         "id": "2m",
-        "date": "12.06.2021",
+        "date": "24.03.2021",
         "typeWorkout": "Ходьба",
         "kilometrage": "1000", 
-        "comment": "1 l2f 2 444j"
+        "comment": "Комментарий к 24 марта"
     },
     {
         "id": "3m",
-        "date": "02.06.2021",
+        "date": "01.04.2021",
         "typeWorkout": "Бег",
         "kilometrage": "100", 
-        "comment": "1 2ы1 2121 212 ыыa 444j"
+        "comment": "Комментарий к 01.04.2021"
     }
 ];
 

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import { makeStyles, InputAdornment, TextField, Button, MenuItem, Select } from '@material-ui/core';
 import { useForm, Controller } from "react-hook-form";
 import { addNewWorkout, editOneWorkout } from '../../redux/workouts/actions';
 import ErrorMessages from '../ErrorMessages/ErrorMessages';
@@ -91,7 +87,7 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
                         required: "Это обязательное поле",
                     })}
                 />
-                
+
             </div>
             <div className={classes.inputBlock}>
                 <Controller
@@ -130,7 +126,10 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
                     onBlur={() => onEmptyInput(getValues().kilometrage, 'kilometrage')}
                     className={classes.textField}
                     id="kilometrage-input"
-                    label="Дистанция (в метрах)"
+                    label="Дистанция"
+                    InputProps={{
+                        endAdornment: <InputAdornment position="start">КМ</InputAdornment>,
+                    }}
                     name="kilometrage"
                     defaultValue={selectedRow.kilometrage ? selectedRow.kilometrage : ""}
                     inputRef={register({

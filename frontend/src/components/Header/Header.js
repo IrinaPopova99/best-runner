@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Navbar from './Navbar/Navbar';
 
 const useStyles = makeStyles({
     header: {
@@ -19,6 +20,7 @@ function Header() {
     return (
         <div className={classes.header}>
             <h1>BestRunner</h1>
+            <Navbar />
         </div>
     )
 }
