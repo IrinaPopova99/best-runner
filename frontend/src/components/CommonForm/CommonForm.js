@@ -1,30 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles, InputAdornment, TextField, Button, MenuItem, Select } from '@material-ui/core';
+import { InputAdornment, TextField, MenuItem, Select } from '@material-ui/core';
 import { useForm, Controller } from "react-hook-form";
 import { addNewWorkout, editOneWorkout } from '../../redux/workouts/actions';
 import ErrorMessages from '../ErrorMessages/ErrorMessages';
+import { useStyles } from './CommonFormStyles';
+import MyButton from '../MyButton/MyButton';
+import { correctMonth, correctDay } from './../../utilits/functions';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'column',
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 350,
-    },
-    inputBlock: {
-        marginTop: theme.spacing(1),
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        marginBottom: theme.spacing(2),
-    }
-}));
-
-function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
+function CommonForm({ handleClose, selected = {}, typeForm }) {
     const classes = useStyles();
     const [typeWorkout, setTypeWorkout] = useState('');
     const [emptyInput, setEmptyInput] = useState(false);
@@ -50,8 +34,8 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
     }
 
     const onSubmit = data => {
-        if (typeForm === 'edit' && selectedRow.id) {
-            const id = selectedRow.id;
+        if (typeForm === 'edit' && selected.id) {
+            const id = selected.id;
             console.log(id)
             console.log(data)
             handleClose();
@@ -66,7 +50,11 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
 
     }
 
-    const dateFix = selectedRow.date ? selectedRow.date.split('.').reverse().join('-') : '2020-03-24';
+    const today = new Date();
+    const maxDate = `${today.getFullYear()}-${correctMonth(today.getMonth())}-${correctDay(today.getDate())}`;
+    const dateFix = selected.date 
+        ? selected.date.split('.').reverse().join('-') 
+        : maxDate;
 
     return (
         <form className={classes.container} onSubmit={handleSubmit(onSubmit)}>
@@ -76,9 +64,12 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
                     error={errors.date}
                     label="Дата"
                     type="date"
+                    min={`${today.getFullYear}-01-01`}
+                    max={maxDate}
                     defaultValue={dateFix}
                     helperText={<ErrorMessages errors={errors} name='date' />}
                     className={classes.textField}
+                    InputProps={{ inputProps: { min: `${today.getFullYear()}-01-01`, max: maxDate } }}
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -92,11 +83,11 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
             <div className={classes.inputBlock}>
                 <Controller
                     name="typeWorkout"
-                    defaultValue={typeWorkout || selectedRow.typeWorkout || 'Бег'}
+                    defaultValue={typeWorkout || selected.typeWorkout || 'Бег'}
                     control={control}
                     as={
                         <Select
-                            value={typeWorkout || selectedRow.typeWorkout || ''}
+                            value={typeWorkout || selected.typeWorkout || ''}
                             labelId="demo-simple-select-label"
                             className={classes.textField}
                             onChange={handleChange}
@@ -131,7 +122,7 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
                         endAdornment: <InputAdornment position="start">КМ</InputAdornment>,
                     }}
                     name="kilometrage"
-                    defaultValue={selectedRow.kilometrage ? selectedRow.kilometrage : ""}
+                    defaultValue={selected.kilometrage ? selected.kilometrage : ""}
                     inputRef={register({
                         required: true,
                         valueAsNumber: true,
@@ -152,16 +143,15 @@ function CommonForm({ handleClose, selectedRow = {}, typeForm }) {
                     inputRef={register({
                         maxLength: { value: 50, message: "Слишком длинная строка" }
                     })}
-                    defaultValue={selectedRow.comment ? selectedRow.comment : ''}
+                    defaultValue={selected.comment ? selected.comment : ''}
                 />
             </div>
-            <Button
-                type="submit"
-                variant="contained"
+            <MyButton 
                 color="primary"
+                type="submit"
             >
                 Сохранить
-            </Button>
+            </MyButton>
 
         </form>
     )

@@ -13,12 +13,7 @@ function App() {
 
     const workouts = useSelector(state => state.workoutReducer.workouts);
 
-    const error = useSelector(state => state.workoutReducer.error);
-
-    if (error) alert(error);
-
     useEffect(() => {
-        console.log('get')
         dispatch(getWorkoutsAll());
     }, [dispatch]);
 

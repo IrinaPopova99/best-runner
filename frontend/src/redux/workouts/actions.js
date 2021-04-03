@@ -1,6 +1,8 @@
 import types from './types';
 import { getWorkouts, deleteWorkout, addWorkout, editWorkout } from './../../api/workoutAPI';
 
+const message = 'Что-то пошло не так. Попробуйте позже';
+
 const getWorkoutsAction = (data) => ({
     type: types.GET_WORKOUTS,
     payload: data
@@ -32,7 +34,7 @@ export const getWorkoutsAll = () => dispatch => {
             dispatch(getWorkoutsAction(data));
             dispatch(loadingAction(false));
         })
-        .catch((error) => dispatch(errorAction('Неполадки на сервере')));
+        .catch((error) => dispatch(errorAction(message)));
 }
 
 export const deleteWorkoutById = (ids) => dispatch => {
@@ -42,7 +44,7 @@ export const deleteWorkoutById = (ids) => dispatch => {
             dispatch(deleteWorkoutsAction(data));
             dispatch(loadingAction(false));
         })
-        .catch((error) => dispatch(errorAction('Неполадки на сервере')));
+        .catch((error) => dispatch(errorAction(message)));
 }
 
 export const addNewWorkout = (data) => dispatch => {
@@ -52,7 +54,7 @@ export const addNewWorkout = (data) => dispatch => {
             dispatch(addWorkoutAction(data));
             dispatch(loadingAction(false));
         })
-        .catch(() => dispatch(errorAction('Неполадки на сервере')));
+        .catch(() => dispatch(errorAction(message)));
 }
 
 export const editOneWorkout = (id, data) => dispatch => {
@@ -62,5 +64,5 @@ export const editOneWorkout = (id, data) => dispatch => {
             dispatch(editWorkoutAction(data));
             dispatch(loadingAction(false));
         })
-        .catch(() => dispatch(errorAction('Неполадки на сервере')));
+        .catch(() => dispatch(errorAction(message)));
 }

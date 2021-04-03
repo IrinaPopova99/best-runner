@@ -1,27 +1,20 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableContainer, Paper, Grid } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import { deleteWorkoutById } from '../../redux/workouts/actions';
 import Actions from '../Actions/Actions';
 import TableRows from './TableRows/TableRows';
 import HeaderRow from './HeaderRow/HeaderRow';
-import Comment from './Comment';
-import ModalWindow from './ModalWindow/ModalWindow';
-import CommonForm from '../CommonForm/CommonForm';
 import Filter from '../Filter/Filter';
 import { filterData, stableSort, getComparator } from '../../utilits/functions';
+import Loading from '../Loading/Loading';
+import { useStyles } from './ContentStyles';
+import ModalWindows from './ModalWindows/ModalWindows';
 
-const useStyles = makeStyles((theme) => ({
-    table: {
-        minWidth: 650,
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-}));
+function createData(id, date, typeWorkout, kilometrage, comment) {
+    return { id, date, typeWorkout, kilometrage, comment };
+}
 
 function WorkoutsList({ workouts }) {
     const [selected, setSelected] = useState([]);
@@ -38,10 +31,6 @@ function WorkoutsList({ workouts }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-
-    function createData(id, date, typeWorkout, kilometrage, comment) {
-        return { id, date, typeWorkout, kilometrage, comment };
-    }
 
     const rows = filterData(workouts, selectedFilters).map(workout => (createData(workout.id, workout.date, workout.typeWorkout, workout.kilometrage, workout.comment)));
 
@@ -70,7 +59,7 @@ function WorkoutsList({ workouts }) {
         setSelected(newSelected);
     };
 
-    const handleOpenComment = (comment) => {
+    const handleOpenComment = (event, comment) => {
         setComment(comment);
         setOpenComment(true);
     };
@@ -108,7 +97,8 @@ function WorkoutsList({ workouts }) {
     };
 
     const typeWorkouts = workouts.map(workout => workout.typeWorkout)
-
+    const isLoading = useSelector(state => state.workoutReducer.isLoading);
+    const error = useSelector(state => state.workoutReducer.error);
     return (
         <Grid container spacing={3} justify="space-between" alignItems="flex-start">
             <Grid item md={2} xs={3}>
@@ -120,6 +110,17 @@ function WorkoutsList({ workouts }) {
             </Grid>
             <Grid item md={10} xs={12}>
                 <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
+                <Grid item md={12} xs={12}>
+                    {error
+                        ? <MuiAlert
+                            elevation={6}
+                            variant="filled"
+                            severity="error"
+                            children={error} />
+                        : <div></div>
+                    }
+                    <Loading isLoading={isLoading} />
+                </Grid>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <HeaderRow
@@ -137,22 +138,14 @@ function WorkoutsList({ workouts }) {
                         />
                     </Table>
                 </TableContainer>
-                <ModalWindow
-                    content={<Comment comment={comment} />}
+                <ModalWindows
+                    handleClose={handleClose}
+                    selected={selectedRow.current.value}
+                    text={comment}
                     open={openComment}
-                    handleClose={handleClose}
-                />
-                <ModalWindow
-                    content={<CommonForm handleClose={handleClose}
-                        selectedRow={selectedRow.current.value}
-                        typeForm="edit" />}
-                    open={openEditForm}
-                    handleClose={handleClose}
-                />
-                <ModalWindow
-                    content={<CommonForm handleClose={handleClose} typeForm="add" />}
-                    open={openAddForm}
-                    handleClose={handleClose}
+                    openAddForm={openAddForm}
+                    openEditForm={openEditForm}
+                    openComment={openComment}
                 />
             </Grid>
         </Grid>

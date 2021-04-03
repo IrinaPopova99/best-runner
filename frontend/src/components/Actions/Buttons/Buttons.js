@@ -1,49 +1,32 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    button: {
-        marginBottom: '20px',
-        marginRight: '20px',
-    },
-    buttonAdd: {
-        backgroundColor: '#1b7505',
-        color: '#fff',
-    }
-}));
+import MyButton from '../../MyButton/MyButton';
 
 function Buttons({ selected, onDelete, onAdd, onEdit }) {
-    const classes = useStyles();
+    const isDisabled = selected.length === 0 ? true : false;
 
     return (
         <div>
-            <Button
-                className={`${classes.button} ${classes.buttonAdd}`}
-                variant="contained"
-                onClick={onAdd}
+            <MyButton
+                action={onAdd}
+                isDisabled={false}
+                color=''
             >
                 Добавить
-            </Button>
-            <Button
-                className={classes.button}
-                variant="contained"
+            </MyButton>
+            <MyButton
+                action={onDelete}
+                isDisabled={isDisabled}
                 color="secondary"
-                onClick={onDelete}
-                disabled={selected.length === 0 ? true : false}
             >
                 Удалить
-            </Button>
-
-            <Button
-                className={classes.button}
-                variant="contained"
+            </MyButton>
+            <MyButton
+                action={onEdit}
+                isDisabled={isDisabled}
                 color="primary"
-                onClick={onEdit}
-                disabled={selected.length === 0 ? true : false}
             >
                 Изменить
-            </Button>
+            </MyButton>
         </div>
     )
 }

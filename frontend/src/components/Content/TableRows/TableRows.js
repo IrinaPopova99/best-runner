@@ -28,7 +28,7 @@ function TableRows({ rows, isSelected, handleClick, handleOpen }) {
                             <TableCell align="center">{row.typeWorkout}</TableCell>
                             <TableCell align="center">
                                 {row.comment !== ""
-                                    ? <IconButton edge="end" aria-label="comments" onClick={() => handleOpen(row.comment)}>
+                                    ? <IconButton edge="end" aria-label="comments" onClick={(event) => handleOpen(event, row.comment)}>
                                         <CommentIcon />
                                     </IconButton>
                                     : <p>Нет</p>

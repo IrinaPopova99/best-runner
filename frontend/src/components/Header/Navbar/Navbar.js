@@ -1,20 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-    navbar: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    link: {
-        color: '#fff',
-        textDecoration: 'none',
-        marginRight: '30px',
-        fontSize: '18px',
-    }
-});
+import { useStyles } from './NavbarStyles';
 
 const Navbar = () => {
     const classes = useStyles();

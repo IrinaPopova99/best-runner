@@ -1,10 +1,13 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { useStyles } from './LoadingStyles';
 
 function Loading({ isLoading }) {
+    const classes = useStyles();
+
     return (
-        <div>
-            {isLoading ? <CircularProgress /> : null}
+        <div className={classes.loading}>
+            {isLoading ? <LinearProgress /> : <div></div>}
         </div>
     )
 }

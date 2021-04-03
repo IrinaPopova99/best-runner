@@ -1,11 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    errorMessage: {
-        color: 'red',
-    },
-}));
+import { useStyles } from './ErrorMessagesStyles';
 
 const ErrorMessages = (props) => {
     const classes = useStyles();

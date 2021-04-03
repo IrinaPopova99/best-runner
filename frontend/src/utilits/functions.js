@@ -98,11 +98,21 @@ export function dateToWeeks(data) {
     return weeksWithData;
 }
 
-function correctMonth(month) {
+export function correctMonth(month) {
     if (String(month + 1).length < 2) {
         return `0${month + 1}`;
-    } else {
+    } 
+    if (String(month + 1).length === 2) {
         return `${month + 1}`;
+    }
+}
+
+export function correctDay(day) {
+    if (String(day).length < 10) {
+        return `0${day}`;
+    } 
+    if (String(day).length >= 10) {
+        return `${day}`;
     }
 }
 

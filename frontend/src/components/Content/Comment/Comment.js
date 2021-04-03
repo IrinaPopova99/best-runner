@@ -1,14 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    title: {
-        marginBottom: '15px',
-    },
-    text: {
-        maxWidth: 400,
-    }
-}));
+import { useStyles } from './CommentStyles';
 
 function Comment({ comment }) {
     const classes = useStyles();
