@@ -1,3 +1,5 @@
+@import '../../../App.scss';
+
 .form-container {
     display: flex;
     flex-wrap: wrap;
@@ -8,4 +10,7 @@
         margin-bottom: 15px!important;
         width: 100%;
     }
+}
+.MuiFormHelperText-root {
+    color: $color-red!important;
 }

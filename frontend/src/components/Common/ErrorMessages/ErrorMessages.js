@@ -6,7 +6,7 @@ const ErrorMessages = (props) => (
         {({ messages }) =>
             messages &&
             Object.entries(messages).map(([type, message]) => (
-                <span className="error-message" key={type}>{message}</span>
+                <span key={type} className="error-message">{message}</span>
             ))
         }
     </ErrorMessage>

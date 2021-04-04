@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableContainer, Paper, Grid } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
 import { deleteWorkoutById } from '../../redux/workouts/actions';
 import { filterData } from '../../utils/filterFunctions';
 import { stableSort, getComparator } from '../../utils/sortFunctions';
@@ -12,6 +11,7 @@ import Filter from '../Common/Filter/Filter';
 import Loading from '../Common/Loading/Loading';
 import ModalWindows from './ModalWindows/ModalWindows';
 import './Content.scss';
+import AlertCustom from '../Common/AlertError/AlertError';
 
 function createData(id, date, typeWorkout, kilometrage, comment) {
     return { id, date, typeWorkout, kilometrage, comment };
@@ -26,12 +26,17 @@ const Content = ({ workouts }) => {
     const [comment, setComment] = useState('');
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('date');
+    const [errorState, setErrorState] = useState(null);
 
     const selectedRow = useRef({});
 
     const dispatch = useDispatch();
 
     const rows = filterData(workouts, selectedFilters).map(workout => (createData(workout.id, workout.date, workout.typeWorkout, workout.kilometrage, workout.comment)));
+
+    const isLoading = useSelector(state => state.workoutReducer.isLoading);
+    const error = useSelector(state => state.workoutReducer.error);
+    if (error) setErrorState(error);
 
     const isSelected = (id) => {
         return selected.indexOf(id) !== -1;
@@ -82,8 +87,9 @@ const Content = ({ workouts }) => {
 
     const onEdit = () => {
         if (selected.length > 1) {
-            alert('Можно выбрать только 1 элемент')
+            setErrorState('Можно выбрать только 1 элемент');
         } else {
+            setErrorState(null);
             setOpenEditForm(true);
             setSelected([]);
         }
@@ -96,8 +102,7 @@ const Content = ({ workouts }) => {
     };
 
     const typeWorkouts = workouts.map(workout => workout.typeWorkout)
-    const isLoading = useSelector(state => state.workoutReducer.isLoading);
-    const error = useSelector(state => state.workoutReducer.error);
+    
     return (
         <Grid container spacing={3} justify="space-between" alignItems="flex-start">
             <Grid item md={2} xs={3}>
@@ -110,14 +115,7 @@ const Content = ({ workouts }) => {
             <Grid item md={10} xs={12}>
                 <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
                 <Grid item md={12} xs={12}>
-                    {error
-                        ? <MuiAlert
-                            elevation={6}
-                            variant="filled"
-                            severity="error"
-                            children={error} />
-                        : <div></div>
-                    }
+                    <AlertCustom error={errorState} />
                     <Loading isLoading={isLoading} />
                 </Grid>
                 <TableContainer component={Paper}>

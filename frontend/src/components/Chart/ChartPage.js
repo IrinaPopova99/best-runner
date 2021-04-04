@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays } from '../../utils/dateAndChartFunctions';
+import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays } from '../../utils/dateFunctions';
 import SelectInput from '../Common/Select/SelectInput';
 import Chart from './Chart';
 

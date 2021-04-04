@@ -1,4 +1,16 @@
-// date and chart
+// date
+
+export const isDate = (value) => {
+    if (typeof value == "string") {
+        let reg = /^[0-9]{2}[.]+[0-9]{2}[.]+[0-9]{4}$/gmi;
+        if (value.search(reg) !== -1) {
+            return true;
+        } else return false;
+    }
+    else return false;
+}
+
+//return the week number
 export const getWeek = (date) => {
     let currentDate = new Date(date);
     let thisYear = currentDate.getFullYear();
@@ -49,6 +61,7 @@ export function weekDays() {
     ];
 }
 
+// Create an object and counting kilometers for each day of the week
 export function dateToWeeks(data) {
     let weeksWithData = {};
     data.forEach(item => {
@@ -62,6 +75,7 @@ export function dateToWeeks(data) {
     return weeksWithData;
 }
 
+// add '0' to the month number if necessary
 export function correctMonth(month) {
     if (String(month + 1).length < 2) {
         return `0${month + 1}`;
@@ -71,6 +85,7 @@ export function correctMonth(month) {
     }
 }
 
+// add '0' to the day number if necessary
 export function correctDay(day) {
     if (String(day).length < 2) {
         return `0${day}`;
@@ -80,10 +95,12 @@ export function correctDay(day) {
     }
 }
 
+// transform date from this "Thu Jan 26 2017 11:00:00 GMT+1100" to this "26.01.2017"
 export function transformDateFromDate (date) {
     return `${correctDay(date.getDate())}.${correctMonth(date.getMonth())}.${date.getFullYear()}`;
 }
 
+// Create an array with numbers of weeks and counting kilometers for each day of every week
 export const createArrayOfWeeks = () => {
     let currentDate = new Date(),
         thisYear = currentDate.getFullYear(),
@@ -95,9 +112,9 @@ export const createArrayOfWeeks = () => {
     dayStartOrEndWeek.setDate(dayStartOrEndWeek.getDate() + firstWeekStart);
 
     while (currentWeek > 0) {
-        arrayOfWeeks.push(`${dayStartOrEndWeek.getDate()}.${correctMonth(dayStartOrEndWeek.getMonth())}.${thisYear}`)
+        arrayOfWeeks.push(transformDateFromDate(dayStartOrEndWeek))
         dayStartOrEndWeek.setDate(dayStartOrEndWeek.getDate() + 6);
-        arrayOfWeeks[arrayOfWeeks.length - 1] += ` - ${dayStartOrEndWeek.getDate()}.${correctMonth(dayStartOrEndWeek.getMonth())}.${thisYear}`;
+        arrayOfWeeks[arrayOfWeeks.length - 1] += ` - ${transformDateFromDate(dayStartOrEndWeek)}`;
         dayStartOrEndWeek.setDate(dayStartOrEndWeek.getDate() + 1);
         currentWeek--;
     }

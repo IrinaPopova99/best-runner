@@ -9,7 +9,6 @@ const Buttons = ({ selected, onDelete, onAdd, onEdit }) => {
             <MyButton
                 action={onAdd}
                 isDisabled={false}
-                color=""
             >
                 Добавить
             </MyButton>

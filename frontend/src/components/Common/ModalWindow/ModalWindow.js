@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Backdrop, Fade } from '@material-ui/core';
+import { Modal, Backdrop, Fade, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import './ModalWindow.scss';
 
 const ModalWindow = ({ content, open, handleClose }) => (
@@ -17,6 +18,9 @@ const ModalWindow = ({ content, open, handleClose }) => (
     >
         <Fade in={open}>
             <div className="fade-content">
+                <IconButton className="fade-content__close" edge="end" aria-label="comments" onClick={handleClose}>
+                    <CloseIcon />
+                </IconButton>
                 {content}
             </div>
         </Fade>

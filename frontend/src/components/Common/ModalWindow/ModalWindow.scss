@@ -1,4 +1,4 @@
-@import '../../../App.scss';
+@import "../../../App.scss";
 
 .modal {
     display: flex;
@@ -13,4 +13,11 @@
     box-shadow: none;
     padding: 30px;
     outline: none;
+    position: relative;
+    &__close {
+        position: absolute;
+        top: -15px;
+        right: -265px;
+        height: auto;
+    }
 }

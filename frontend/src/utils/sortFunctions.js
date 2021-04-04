@@ -1,19 +1,10 @@
-import { correctDay, correctMonth, transformDateFromDate, transformDateFromRussian } from "./dateAndChartFunctions";
+import { transformDateFromDate, transformDateFromRussian, isDate } from "./dateFunctions";
 
 //sort
-const isDate = (value) => {
-    if (typeof value == "string") {
-        let reg = /^[0-9]{2}[.]+[0-9]{2}[.]+[0-9]{4}$/gmi;
-        if (value.search(reg) !== -1) {
-            return true;
-        } else return false;
-    }
-    else return false;
-}
 
 function descendingComparator(a, b, orderBy) {
     let isDateValue = isDate(a[orderBy]);
-    
+
     if (isDateValue) {
         a[orderBy] = new Date(transformDateFromRussian(a[orderBy]));
         b[orderBy] = new Date(transformDateFromRussian(b[orderBy]));
