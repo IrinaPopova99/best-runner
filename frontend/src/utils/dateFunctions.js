@@ -61,6 +61,13 @@ export function weekDays() {
     ];
 }
 
+function fixWeekdays(day) {
+    if (day === 0) {
+        return 6;
+    } else return day - 1;
+
+}
+
 // Create an object and counting kilometers for each day of the week
 export function dateToWeeks(data) {
     let weeksWithData = {};
@@ -70,7 +77,7 @@ export function dateToWeeks(data) {
         if (!weeksWithData[numberWeek]) {
             weeksWithData[numberWeek] = weekDays();
         }
-        weeksWithData[numberWeek][(new Date(newDate)).getDay() - 1].data += +item.kilometrage;
+        weeksWithData[numberWeek][fixWeekdays((new Date(newDate)).getDay())].data += +item.kilometrage;
     })
     return weeksWithData;
 }
