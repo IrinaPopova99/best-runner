@@ -13,10 +13,10 @@ export const isDate = (value) => {
 //return the week number
 export const getWeek = (date) => {
     let currentDate = new Date(date);
-    let thisYear = currentDate.getFullYear();
-    let onejan = new Date(thisYear, 0, 1);
-    let firstWeek = onejan.getDay() > 4 ? -onejan.getDay() : onejan.getDay();
-    return Math.ceil((((currentDate - onejan) / 86400000) + firstWeek) / 7);
+    let dayNum = currentDate.getUTCDay() || 7;
+    currentDate.setUTCDate(currentDate.getUTCDate() + 4 - dayNum);
+    let yearStart = new Date(Date.UTC(currentDate.getUTCFullYear(),0,1));
+    return Math.ceil((((currentDate - yearStart) / 86400000) + 1)/7)
 }
 
 export const transformDateFromRussian = (date) => {
