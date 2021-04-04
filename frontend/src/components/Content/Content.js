@@ -23,6 +23,7 @@ const Content = ({ workouts }) => {
     const [comment, setComment] = useState('');
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('date');
+    const [errorState, setErrorState] = useState(null);
 
     const selectedRow = useRef({});
 
@@ -82,8 +83,9 @@ const Content = ({ workouts }) => {
 
     const onEdit = () => {
         if (selected.length > 1) {
-            error = 'Можно выбрать только 1 элемент';
+             setErrorState('Можно выбрать только 1 элемент');
         } else {
+            setErrorState(null);
             setOpenEditForm(true);
             setSelected([]);
         }
@@ -109,7 +111,7 @@ const Content = ({ workouts }) => {
             <Grid item md={10} xs={12}>
                 <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
                 <Grid item md={12} xs={12}>
-                    <AlertCustom error={error} />
+                    <AlertCustom error={error || errorState} />
                     <Loading isLoading={isLoading} />
                 </Grid>
                 <TableContainer component={Paper}>
