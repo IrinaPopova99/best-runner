@@ -7,8 +7,12 @@ export const getWeek = (date) => {
     return Math.ceil((((currentDate - onejan) / 86400000) + firstWeek) / 7);
 }
 
-export const transformDate = (date) => {
+export function transformDateFromRussian (date) {
     return date.split('.').reverse().join('-');
+}
+
+export function transformDateToRussian (date) {
+    return date.split('-').reverse().join('.');
 }
 
 export function weekDays() {
@@ -48,7 +52,7 @@ export function weekDays() {
 export function dateToWeeks(data) {
     let weeksWithData = {};
     data.forEach(item => {
-        let newDate = transformDate(item.date);
+        let newDate = transformDateFromRussian(item.date);
         let numberWeek = getWeek(newDate);
         if (!weeksWithData[numberWeek]) {
             weeksWithData[numberWeek] = weekDays();
@@ -68,12 +72,16 @@ export function correctMonth(month) {
 }
 
 export function correctDay(day) {
-    if (String(day).length < 10) {
+    if (String(day).length < 2) {
         return `0${day}`;
     } 
-    if (String(day).length >= 10) {
+    if (String(day).length >= 2) {
         return `${day}`;
     }
+}
+
+export function transformDateFromDate (date) {
+    return `${correctDay(date.getDate())}.${correctMonth(date.getMonth())}.${date.getFullYear()}`;
 }
 
 export const createArrayOfWeeks = () => {
