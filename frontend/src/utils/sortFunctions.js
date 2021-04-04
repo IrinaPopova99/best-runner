@@ -2,7 +2,7 @@ import { transformDateFromDate, transformDateFromRussian, isDate } from "./dateF
 
 //sort
 
-function descendingComparator(a, b, orderBy) {
+const descendingComparator = (a, b, orderBy) => {
     let isDateValue = isDate(a[orderBy]);
 
     if (isDateValue) {
@@ -34,13 +34,13 @@ function descendingComparator(a, b, orderBy) {
     return 0;
 }
 
-export function getComparator(order, orderBy) {
+export const getComparator = (order, orderBy) => {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export function stableSort(array, comparator) {
+export const stableSort = (array, comparator) => {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);

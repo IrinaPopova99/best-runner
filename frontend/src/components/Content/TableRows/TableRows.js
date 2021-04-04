@@ -1,14 +1,15 @@
 import React from 'react';
-import { Checkbox, IconButton, TableCell, TableRow, TableBody } from '@material-ui/core';
-import CommentIcon from '@material-ui/icons/Comment';
+import { Checkbox, TableCell, TableRow, TableBody } from '@material-ui/core';
+import CommentIconButton from './CommentIconButton';
+
 
 const TableRows = ({ rows, isSelected, handleClick, handleOpen }) => (
     <>
         {rows.map((row) => {
             const isItemSelected = isSelected(row.id);
             return (
-                <TableBody>
-                    <TableRow key={row.id}>
+                <TableBody key={row.id}>
+                    <TableRow >
                         <TableCell padding="checkbox" align="center">
                             <Checkbox
                                 onClick={(event) => handleClick(event, row.id, row)}
@@ -22,12 +23,7 @@ const TableRows = ({ rows, isSelected, handleClick, handleOpen }) => (
                         <TableCell align="center">{row.kilometrage}</TableCell>
                         <TableCell align="center">{row.typeWorkout}</TableCell>
                         <TableCell align="center">
-                            {row.comment !== ""
-                                ? <IconButton edge="end" aria-label="comments" onClick={(event) => handleOpen(event, row.comment)}>
-                                    <CommentIcon />
-                                </IconButton>
-                                : <p>Нет</p>
-                            }
+                            <CommentIconButton handleOpen={handleOpen} comment={row.comment} />
                         </TableCell>
                     </TableRow>
                 </TableBody>

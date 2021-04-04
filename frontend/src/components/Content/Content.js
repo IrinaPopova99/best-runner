@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableContainer, Paper, Grid } from '@material-ui/core';
 import { deleteWorkoutById } from '../../redux/workouts/actions';
+import { createData } from '../../utils/createData';
 import { filterData } from '../../utils/filterFunctions';
 import { stableSort, getComparator } from '../../utils/sortFunctions';
 import Actions from './Actions/Actions';
@@ -10,12 +11,8 @@ import HeaderRow from './HeaderRow/HeaderRow';
 import Filter from '../Common/Filter/Filter';
 import Loading from '../Common/Loading/Loading';
 import ModalWindows from './ModalWindows/ModalWindows';
-import './Content.scss';
 import AlertCustom from '../Common/AlertError/AlertError';
-
-function createData(id, date, typeWorkout, kilometrage, comment) {
-    return { id, date, typeWorkout, kilometrage, comment };
-}
+import './Content.scss';
 
 const Content = ({ workouts }) => {
     const [selected, setSelected] = useState([]);
@@ -26,7 +23,6 @@ const Content = ({ workouts }) => {
     const [comment, setComment] = useState('');
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('date');
-    const [errorState, setErrorState] = useState(null);
 
     const selectedRow = useRef({});
 
@@ -35,8 +31,7 @@ const Content = ({ workouts }) => {
     const rows = filterData(workouts, selectedFilters).map(workout => (createData(workout.id, workout.date, workout.typeWorkout, workout.kilometrage, workout.comment)));
 
     const isLoading = useSelector(state => state.workoutReducer.isLoading);
-    const error = useSelector(state => state.workoutReducer.error);
-    if (error) setErrorState(error);
+    let error = useSelector(state => state.workoutReducer.error);
 
     const isSelected = (id) => {
         return selected.indexOf(id) !== -1;
@@ -87,9 +82,8 @@ const Content = ({ workouts }) => {
 
     const onEdit = () => {
         if (selected.length > 1) {
-            setErrorState('Можно выбрать только 1 элемент');
+            error = 'Можно выбрать только 1 элемент';
         } else {
-            setErrorState(null);
             setOpenEditForm(true);
             setSelected([]);
         }
@@ -115,7 +109,7 @@ const Content = ({ workouts }) => {
             <Grid item md={10} xs={12}>
                 <Actions selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
                 <Grid item md={12} xs={12}>
-                    <AlertCustom error={errorState} />
+                    <AlertCustom error={error} />
                     <Loading isLoading={isLoading} />
                 </Grid>
                 <TableContainer component={Paper}>

@@ -19,15 +19,15 @@ export const getWeek = (date) => {
     return Math.ceil((((currentDate - onejan) / 86400000) + firstWeek) / 7);
 }
 
-export function transformDateFromRussian (date) {
+export const transformDateFromRussian = (date) => {
     return date.split('.').reverse().join('-');
 }
 
-export function transformDateToRussian (date) {
+export const transformDateToRussian = (date) => {
     return date.split('-').reverse().join('.');
 }
 
-export function weekDays() {
+export const weekDays = () => {
     return [
         {
             name: 'ПН',
@@ -61,7 +61,7 @@ export function weekDays() {
     ];
 }
 
-function fixWeekdays(day) {
+const fixWeekdays = (day) => {
     if (day === 0) {
         return 6;
     } else return day - 1;
@@ -69,7 +69,7 @@ function fixWeekdays(day) {
 }
 
 // Create an object and counting kilometers for each day of the week
-export function dateToWeeks(data) {
+export const dateToWeeks = (data) => {
     let weeksWithData = {};
     data.forEach(item => {
         let newDate = transformDateFromRussian(item.date);
@@ -83,7 +83,7 @@ export function dateToWeeks(data) {
 }
 
 // add '0' to the month number if necessary
-export function correctMonth(month) {
+export const correctMonth = (month) => {
     if (String(month + 1).length < 2) {
         return `0${month + 1}`;
     } 
@@ -93,7 +93,7 @@ export function correctMonth(month) {
 }
 
 // add '0' to the day number if necessary
-export function correctDay(day) {
+export const correctDay = (day) => {
     if (String(day).length < 2) {
         return `0${day}`;
     } 
@@ -103,7 +103,7 @@ export function correctDay(day) {
 }
 
 // transform date from this "Thu Jan 26 2017 11:00:00 GMT+1100" to this "26.01.2017"
-export function transformDateFromDate (date) {
+export const transformDateFromDate = (date) => {
     return `${correctDay(date.getDate())}.${correctMonth(date.getMonth())}.${date.getFullYear()}`;
 }
 

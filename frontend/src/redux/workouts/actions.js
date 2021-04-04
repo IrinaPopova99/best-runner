@@ -34,13 +34,13 @@ export const getWorkoutsAll = () => dispatch => {
             dispatch(getWorkoutsAction(data));
             dispatch(loadingAction(false));
         })
-        .catch((error) => dispatch(errorAction(message)));
+        .catch((error) =>  dispatch(errorAction(message)));
 }
 
 export const deleteWorkoutById = (ids) => dispatch => {
     dispatch(loadingAction(true));
     deleteWorkout(ids)
-        .then((data) => {
+        .then((data) => { 
             dispatch(deleteWorkoutsAction(data));
             dispatch(loadingAction(false));
         })
