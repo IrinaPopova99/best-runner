@@ -25,12 +25,13 @@ const HeaderRow = ({
                         key={headCell.id}
                         sortDirection={orderBy === headCell.id ? order : false}
                         align="center"
+                        className="sort-cell"
                     >
                         <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}
-                            className="arrow"
+                            className="sort-cell__arrow"
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (

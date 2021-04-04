@@ -2,7 +2,6 @@ import React from 'react';
 import { Checkbox, TableCell, TableRow, TableBody } from '@material-ui/core';
 import CommentIconButton from './CommentIconButton';
 
-
 const TableRows = ({ rows, isSelected, handleClick, handleOpen }) => (
     <>
         {rows.map((row) => {
