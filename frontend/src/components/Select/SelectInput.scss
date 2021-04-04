@@ -1,0 +1,14 @@
+@import "./../../App.scss";
+
+.label-text {
+    margin-bottom: 20px;
+    color: $color-black;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+    .label-text {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+}

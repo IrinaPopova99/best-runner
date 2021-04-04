@@ -3,20 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableContainer, Paper, Grid } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { deleteWorkoutById } from '../../redux/workouts/actions';
+import { filterData } from '../../utils/filterFunctions';
+import { stableSort, getComparator } from '../../utils/sortFunctions';
 import Actions from '../Actions/Actions';
 import TableRows from './TableRows/TableRows';
 import HeaderRow from './HeaderRow/HeaderRow';
 import Filter from '../Filter/Filter';
-import { filterData, stableSort, getComparator } from '../../utilits/functions';
 import Loading from '../Loading/Loading';
-import { useStyles } from './ContentStyles';
 import ModalWindows from './ModalWindows/ModalWindows';
+import './Content.scss';
 
 function createData(id, date, typeWorkout, kilometrage, comment) {
     return { id, date, typeWorkout, kilometrage, comment };
 }
 
-function WorkoutsList({ workouts }) {
+const Content = ({ workouts }) => {
     const [selected, setSelected] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [openComment, setOpenComment] = useState(false);
@@ -27,8 +28,6 @@ function WorkoutsList({ workouts }) {
     const [orderBy, setOrderBy] = useState('date');
 
     const selectedRow = useRef({});
-
-    const classes = useStyles();
 
     const dispatch = useDispatch();
 
@@ -122,7 +121,7 @@ function WorkoutsList({ workouts }) {
                     <Loading isLoading={isLoading} />
                 </Grid>
                 <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table className="table" aria-label="simple table">
                         <HeaderRow
                             numSelected={selected.length}
                             order={order}
@@ -152,4 +151,4 @@ function WorkoutsList({ workouts }) {
     );
 }
 
-export default WorkoutsList;
+export default Content;

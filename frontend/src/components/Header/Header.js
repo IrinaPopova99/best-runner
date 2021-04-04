@@ -1,16 +1,13 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
-import { useStyles } from './HeaderStyles';
+import './Header.scss';
 
-function Header() {
-    const classes = useStyles();
+const Header = () => (
+    <div className="header">
+        <h1 className="header__title">BestRunner</h1>
+        <Navbar />
+    </div>
+)
 
-    return (
-        <div className={classes.header}>
-            <h1>BestRunner</h1>
-            <Navbar />
-        </div>
-    )
-}
 
 export default Header;

@@ -1,15 +1,11 @@
 import React from 'react';
 import Buttons from './Buttons/Buttons';
-import { useStyles } from './ActionsStyles';
+import './Actions.scss';
 
-function Actions({ selected, onDelete, onAdd, onEdit }) {
-    const classes = useStyles();
-
-    return (
-        <div className={classes.action}>
-            <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
-        </div>
-    )
-}
+const Actions = ({ selected, onDelete, onAdd, onEdit }) => (
+    <div className="action">
+        <Buttons selected={selected} onDelete={onDelete} onAdd={onAdd} onEdit={onEdit} />
+    </div>
+)
 
 export default Actions;

@@ -1,15 +1,8 @@
 import React from 'react';
-import { useStyles } from './FilterStyles';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import './Filter.scss';
+import { FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 
-
-export default function Filter({ labels, selected, setSelected }) {
-    const classes = useStyles();
-
+const Filter = ({ labels, selected, setSelected }) => {
     const isSelected = (id) => {
         return selected.indexOf(id) !== -1;
     }
@@ -39,30 +32,30 @@ export default function Filter({ labels, selected, setSelected }) {
     }
 
     return (
-        <div className={classes.root}>
-            <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend">Фильтр&nbsp;по:</FormLabel>
-                <FormGroup>
-                    {labels
-                        ? labels.map(item => {
-                            const isItemSelected = isSelected(item);
-                            return <FormControlLabel
+        <FormControl component="fieldset" className="form-control">
+            <FormLabel component="legend">Фильтр&nbsp;по:</FormLabel>
+            <FormGroup>
+                {labels
+                    ? labels.map(item => {
+                        const isItemSelected = isSelected(item);
+                        return <FormControlLabel
+                            key={item}
+                            control={<Checkbox
+                                selected={isItemSelected}
+                                checked={isItemSelected}
+                                onClick={handleClick}
+                                name={item}
                                 key={item}
-                                control={<Checkbox
-                                    selected={isItemSelected}
-                                    checked={isItemSelected}
-                                    onClick={handleClick}
-                                    name={item}
-                                    key={item}
-                                />}
-                                label={item}
-                            />
+                            />}
+                            label={item}
+                        />
 
 
-                        })
-                        : null}
-                </FormGroup>
-            </FormControl>
-        </div>
+                    })
+                    : null}
+            </FormGroup>
+        </FormControl>
     );
 }
+
+export default Filter;

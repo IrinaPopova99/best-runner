@@ -1,15 +1,12 @@
 import React from 'react';
-import { useStyles } from './CommentStyles';
+import './Comment.scss';
 
-function Comment({ comment }) {
-    const classes = useStyles();
+const Comment = ({ comment }) => (
+    <div className="comment">
+        <h3 className="comment__title">Комментарий</h3>
+        <p className="comment__text">{comment}</p>
+    </div>
+)
 
-    return (
-        <>
-            <h3 className={classes.title}>Комментарий</h3>
-            <p className={classes.text}>{comment}</p>
-        </>
-    )
-}
 
 export default Comment;

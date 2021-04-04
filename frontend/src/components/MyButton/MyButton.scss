@@ -1,0 +1,15 @@
+@import './../../App.scss';
+
+.button {
+    margin: 15px!important;
+}
+.button-add {
+    background-color: $color-green!important;
+    color: $color-white!important;
+}
+
+@media screen and (max-width: 768px) {
+    .button {
+        margin: 5px!important;
+    }
+}

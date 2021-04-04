@@ -1,17 +1,15 @@
 import React from 'react';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
-import { useStyles } from './SelectInputStyles';
+import './SelectInput.scss';
 
-function SelectInput({ selected, setSelected, labelText, data }) {
-    const classes = useStyles();
-
+const SelectInput = ({ selected, setSelected, labelText, data }) => {
     const handleChange = (event) => {
         setSelected(event.target.value);
     };
 
     return (
         <FormControl>
-            <span className={classes.labelText}>
+            <span className="label-text">
                 {labelText}
             </span>
             <Select

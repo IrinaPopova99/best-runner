@@ -1,19 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { useStyles } from './NavbarStyles';
+import './Navbar.scss';
 
-const Navbar = () => {
-    const classes = useStyles();
-
-    return (
-        <nav className={classes.navbar}>
-            <NavLink to="/" className={classes.link}>
-                <span>Таблица</span>
-            </NavLink>
-            <NavLink to="/chart" className={classes.link}>
-                <span>График</span>
-            </NavLink>
-        </nav>
-    );
-}
+const Navbar = () => (
+    <nav className="navbar">
+        <NavLink to="/" className="navbar__link">
+            <span>Таблица</span>
+        </NavLink>
+        <NavLink to="/chart" className="navbar__link">
+            <span>График</span>
+        </NavLink>
+    </nav>
+);
 
 export default Navbar;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
+import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays } from '../../utils/dateAndChartFunctions';
 import SelectInput from '../Select/SelectInput';
 import Chart from './Chart';
-import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays } from '../../utilits/functions';
 
-function ChartPage({ workouts }) {
+const ChartPage = ({ workouts }) => {
     const [selectedWeek, setSelectedWeek] = useState(getWeek(Date()));
     const dataForChart = dateToWeeks(workouts);
 

@@ -1,0 +1,14 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fade-content {
+    position: absolute;
+    width: 400px;
+    // background-color: theme.palette.background.paper,
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 30px;
+    outline: none;
+}
