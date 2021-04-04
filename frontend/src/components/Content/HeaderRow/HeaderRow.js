@@ -3,11 +3,9 @@ import { TableRow, TableCell, TableHead, TableSortLabel } from '@material-ui/cor
 import './HeaderRow.scss';
 
 const HeaderRow = ({
-    numSelected,
     order,
     orderBy,
-    onRequestSort,
-    rowCount,
+    onRequestSort
 }) => {
     const headCells = [
         { id: 'date', label: 'Дата' },
@@ -36,7 +34,7 @@ const HeaderRow = ({
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
-                                <span className="visuallyHidden">
+                                <span className="visually-hidden">
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                 </span>
                             ) : null}

@@ -5,11 +5,11 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { deleteWorkoutById } from '../../redux/workouts/actions';
 import { filterData } from '../../utils/filterFunctions';
 import { stableSort, getComparator } from '../../utils/sortFunctions';
-import Actions from '../Actions/Actions';
+import Actions from './Actions/Actions';
 import TableRows from './TableRows/TableRows';
 import HeaderRow from './HeaderRow/HeaderRow';
-import Filter from '../Filter/Filter';
-import Loading from '../Loading/Loading';
+import Filter from '../Common/Filter/Filter';
+import Loading from '../Common/Loading/Loading';
 import ModalWindows from './ModalWindows/ModalWindows';
 import './Content.scss';
 

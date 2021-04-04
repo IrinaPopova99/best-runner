@@ -1,4 +1,6 @@
-.visuallyHidden {
+@import '../../../App.scss';
+
+.visually-hidden {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1;
@@ -10,5 +12,24 @@
     width: 1;
 }
 .arrow {
-    color: "#989898";
+    color: $color-grey;
+}
+.MuiTableContainer-root {
+    overflow-x: scroll!important;
+    -webkit-overflow-scrolling: touch!important;
+}
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+::-webkit-scrollbar:horizontal {
+    height: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffffff;
 }

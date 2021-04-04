@@ -1,7 +1,7 @@
 import React from 'react';
 import Comment from './../Comment/Comment';
-import ModalWindow from './ModalWindow/ModalWindow';
-import CommonForm from './../../CommonForm/CommonForm';
+import ModalWindow from './../../Common/ModalWindow/ModalWindow';
+import CommonForm from './../../Common/CommonForm/CommonForm';
 
 const ModalWindows = ({ handleClose, selected, text, openComment, openEditForm, openAddForm }) => (
     <div>

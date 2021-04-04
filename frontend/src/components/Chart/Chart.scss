@@ -1,8 +1,30 @@
-@import './../../App.scss';
+@import "./../../App.scss";
 
-.label {
-    background: $color-white;
-    border: 1px solid $color-grey;
-    padding: 20px;
-    border-radius: 8px;
+.chart {
+    width: 100%;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    &__label {
+        background: $color-white;
+        border: 1px solid $color-grey;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+    ::-webkit-scrollbar:horizontal {
+        height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+    }
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
 }

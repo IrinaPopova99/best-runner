@@ -1,7 +1,7 @@
 import React from 'react';
-import MyButton from '../../MyButton/MyButton';
+import MyButton from '../../../Common/MyButton/MyButton';
 
-function Buttons({ selected, onDelete, onAdd, onEdit }) {
+const Buttons = ({ selected, onDelete, onAdd, onEdit }) => {
     const isDisabled = selected.length === 0 ? true : false;
 
     return (
@@ -9,7 +9,7 @@ function Buttons({ selected, onDelete, onAdd, onEdit }) {
             <MyButton
                 action={onAdd}
                 isDisabled={false}
-                color=''
+                color=""
             >
                 Добавить
             </MyButton>
