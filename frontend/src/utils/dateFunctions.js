@@ -14,8 +14,11 @@ export const isDate = (value) => {
 export const getWeek = (date) => {
     let currentDate = new Date(date);
     let dayNum = currentDate.getUTCDay() || 7;
+
     currentDate.setUTCDate(currentDate.getUTCDate() + 4 - dayNum);
+
     let yearStart = new Date(Date.UTC(currentDate.getUTCFullYear(),0,1));
+    
     return Math.ceil((((currentDate - yearStart) / 86400000) + 1)/7)
 }
 
@@ -112,7 +115,7 @@ export const createArrayOfWeeks = () => {
     let currentDate = new Date(),
         thisYear = currentDate.getFullYear(),
         dayStartOrEndWeek = new Date(thisYear, 0, 1),
-        currentWeek = getWeek(currentDate),
+        currentWeek = getWeek(transformDateFromRussian(transformDateFromDate(currentDate))),
         firstWeekStart = 8 - dayStartOrEndWeek.getDay(),
         arrayOfWeeks = [];
 
@@ -125,6 +128,5 @@ export const createArrayOfWeeks = () => {
         dayStartOrEndWeek.setDate(dayStartOrEndWeek.getDate() + 1);
         currentWeek--;
     }
-    
     return arrayOfWeeks;
 }

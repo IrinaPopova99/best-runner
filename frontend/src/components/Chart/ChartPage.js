@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays } from '../../utils/dateFunctions';
+import { dateToWeeks, getWeek, createArrayOfWeeks, weekDays, transformDateFromDate, transformDateFromRussian } from '../../utils/dateFunctions';
 import SelectInput from '../Common/Select/SelectInput';
 import Chart from './Chart';
 
 const ChartPage = ({ workouts }) => {
-    const [selectedWeek, setSelectedWeek] = useState(getWeek(Date()));
+    const currentDate = transformDateFromRussian( transformDateFromDate(new Date()));
+    const [selectedWeek, setSelectedWeek] = useState(getWeek(currentDate));
     const dataForChart = dateToWeeks(workouts);
 
     const arrayOfWeeks = createArrayOfWeeks();
