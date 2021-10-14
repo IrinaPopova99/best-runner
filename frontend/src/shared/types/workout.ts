@@ -1,7 +1,7 @@
 export type Workout = {
   id?: string,
-  date: string | Date,
+  date: Date,
   typeWorkout: string,
-  kilometrage: number | string,
+  kilometrage: number,
   comment: string
 };

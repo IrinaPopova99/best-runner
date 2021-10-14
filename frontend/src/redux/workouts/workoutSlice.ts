@@ -43,7 +43,7 @@ const workoutSlice = createSlice({
       }))
       .addCase(deleteWorkoutById.fulfilled, (state, action: PayloadAction<any>) => ({
         ...state,
-        workouts: [...state.workouts, action.payload],
+        workouts: action.payload,
         isLoading: false,
         error: null,
       }))

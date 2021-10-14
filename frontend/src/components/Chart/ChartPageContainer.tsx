@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getWorkoutsAll } from "../../redux/workouts/thunks";
 import { RootState, Workout } from "../../shared/types";
 import ChartPage from './ChartPage';
+import { getWorkouts } from '../../utils/selectors';
 
 type ChartPageContainerType = {
   getWorkoutsAll: () => void;
@@ -17,7 +18,7 @@ const ChartPageContainer: React.FC<ChartPageContainerType> = (props) => {
 }
 const mapStateToProps = (state: RootState) => {
   return {
-    workouts: state.workoutSlice.workouts,
+    workouts: getWorkouts(state),
   };
 };
 

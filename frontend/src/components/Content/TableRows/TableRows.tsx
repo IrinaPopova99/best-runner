@@ -2,6 +2,7 @@ import React from "react";
 import { Checkbox, TableCell, TableRow, TableBody } from "@material-ui/core";
 import CommentIconButton from "./CommentIconButton";
 import { Workout } from "../../../shared/types";
+import { transformDateFormatToRussianFormat } from "../../../utils/dateFunctions";
 
 type TableRowsType = {
   rows: Workout[];
@@ -17,7 +18,7 @@ const TableRows: React.FC<TableRowsType> = ({
   handleOpen,
 }) => (
   <>
-    {rows.map((row) => {
+    {rows.map((row) => { 
       const isItemSelected: boolean = isSelected(row?.id || "");
       return (
         <TableBody key={row.id}>
@@ -25,11 +26,10 @@ const TableRows: React.FC<TableRowsType> = ({
             <TableCell padding="checkbox" align="center">
               <Checkbox
                 onClick={(event) => handleClick(event, row?.id || "", row)}
-                // selected={isItemSelected}
                 checked={isItemSelected}
               />
             </TableCell>
-            <TableCell align="center">{row.date}</TableCell>
+            <TableCell align="center">{transformDateFormatToRussianFormat(row.date)}</TableCell>
             <TableCell align="center">{row.kilometrage}</TableCell>
             <TableCell align="center">{row.typeWorkout}</TableCell>
             <TableCell align="center">

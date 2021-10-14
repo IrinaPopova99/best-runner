@@ -1,15 +1,18 @@
 import { createSelector } from "reselect";
 import { RootState } from "../shared/types";
-import { filterData } from './filterFunctions';
+import { filterWorkouts } from "./filterFunctions";
+import { getWorkoutsWithCorrectDateFormat } from "./getWorkoutsWithCorrectDateFormat";
 
-const getVisibilityFilter = (state: RootState) => state.filtersReducer.filters;
-const getWorkouts = (state: RootState) => { console.log(state.workoutSlice.workouts); return state.workoutSlice.workouts; }
+const getVisibleFilters = (state: RootState) => state.filtersReducer.filters;
+
+export const getWorkouts = (state: RootState) =>
+  getWorkoutsWithCorrectDateFormat(state.workoutSlice.workouts);
 
 export const getVisibleWorkouts = createSelector(
-  [getVisibilityFilter, getWorkouts],
+  [getVisibleFilters, getWorkouts],
   (filters, workouts) => {
     if (filters.length !== 0) {
-      return filterData(workouts, filters);
+      return filterWorkouts(workouts, filters);
     }
     return workouts;
   }

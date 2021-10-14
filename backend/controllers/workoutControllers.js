@@ -1,26 +1,28 @@
 import { v4 as uuid4 } from 'uuid';
 
+
+
 let workouts = [
     {
-        "id": "1m",
-        "date": "12.03.2021",
+        "id": uuid4(),
+        "date": new Date(2020, 0, 1),
         "typeWorkout": "Бег",
         "kilometrage": "500", 
-        "comment": "Комментарий к 12"
+        "comment": "Комментарий 1"
     },
     {
-        "id": "2m",
-        "date": "24.03.2021",
+        "id": uuid4(),
+        "date": new Date(2020, 0, 3),
         "typeWorkout": "Ходьба",
         "kilometrage": "1000", 
-        "comment": "Комментарий к 24 марта"
+        "comment": "Комментарий 2"
     },
     {
-        "id": "3m",
-        "date": "01.04.2021",
+        "id": uuid4(),
+        "date": new Date(2021, 0, 2),
         "typeWorkout": "Бег",
         "kilometrage": "100", 
-        "comment": "Комментарий к 01.04.2021"
+        "comment": "Комментарий 3"
     }
 ];
 
@@ -36,7 +38,6 @@ export const getWorkoutById = (req, res) => {
 
 export const createWorkout = (req, res) => {
     let workout = req.body;
-    workout.date = workout.date.split('-').reverse().join('.');
     const workoutWithId = { ...workout, id: uuid4() };
     workouts.push(workoutWithId);
     res.send(workoutWithId);
@@ -54,7 +55,7 @@ export const updateWorkout = (req, res) => {
 
     const workout = workouts.find((workout) => workout.id === id);
     
-    if (date) workout.date = date.split('-').reverse().join('.');
+    if (date) workout.date = date;
     if (typeWorkout) workout.typeWorkout = typeWorkout;
     if (kilometrage) workout.kilometrage = kilometrage;
     if (comment) workout.comment = comment;

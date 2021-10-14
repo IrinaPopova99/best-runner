@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Workout } from "../../types";
 import { today } from '../../../constants/date';
-import { transformDateFormatToRussianDate } from "../../../utils/dateFunctions";
 
 type CommonFormType = {
   handleClose(): void;
@@ -28,7 +27,6 @@ const CommonForm: React.FC<CommonFormType> = ({
 }) => {
   const handleSubmit = (values: Workout) => {
     handleClose();
-    values.date = transformDateFormatToRussianDate(values.date);
     if (typeForm === "edit" && selected.id) {
       const id = selected.id;
       return editOneWorkout(id, values);
@@ -54,7 +52,7 @@ const CommonForm: React.FC<CommonFormType> = ({
         dateFormat="dd.MM.yyyy"
         selected={new Date(formik.values.date)}
         onChange={val => {
-          formik.setFieldValue("date", val);
+          formik.setFieldValue("date", `${val}`);
         }}
       />
       <Select
