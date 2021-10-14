@@ -1,0 +1,30 @@
+@import "./App.scss";
+
+legend,
+th,
+td,
+span {
+  color: $color-light-blue !important;
+}
+body,
+table {
+  background-color: #000c2a;
+}
+table {
+  background-color: #011138;
+  border: 1px solid $color-light-blue;
+}
+.sort-cell__arrow {
+  color: #333333 !important;
+}
+.fade-content {
+  background-color: #001957;
+  color: $color-light-blue !important;
+}
+.form-container {
+  color: $color-light-blue !important;
+}
+.MuiInputBase-root,
+label {
+  color: $color-light-blue !important;
+}

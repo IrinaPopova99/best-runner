@@ -1,0 +1,1 @@
+export type ErrorRequest = string | null;

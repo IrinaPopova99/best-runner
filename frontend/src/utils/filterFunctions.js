@@ -8,5 +8,6 @@ export const filterData = (array, filters) => {
             })[0]
         )
         return arrayFilter;
-    } else return array;
+    } 
+    return array;
 }

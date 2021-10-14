@@ -1,35 +1,36 @@
-import { transformDateFromDate, transformDateFromRussian, isDate } from "./dateFunctions";
+import { transformDateFormatToRussianDate, transformDateFromRussian, isDate } from "./dateFunctions";
 
 //sort
 
 const descendingComparator = (a, b, orderBy) => {
     let isDateValue = isDate(a[orderBy]);
-
+    let firstValue = a[orderBy],
+        secondValue = b[orderBy];
     if (isDateValue) {
-        a[orderBy] = new Date(transformDateFromRussian(a[orderBy]));
-        b[orderBy] = new Date(transformDateFromRussian(b[orderBy]));
+        firstValue = new Date(transformDateFromRussian(firstValue));
+        secondValue = new Date(transformDateFromRussian(secondValue));
     } else {
-        a[orderBy] = isNaN(a[orderBy]) ? a[orderBy] : +(a[orderBy]);
-        b[orderBy] = isNaN(b[orderBy]) ? b[orderBy] : +(b[orderBy]);
+        firstValue = isNaN(firstValue) ? firstValue : +(firstValue);
+        secondValue = isNaN(secondValue) ? secondValue : +(secondValue);
     }
     
-    if (b[orderBy] < a[orderBy]) {
+    if (secondValue < firstValue) {
         if (isDateValue) {
-            a[orderBy] = transformDateFromDate(a[orderBy]);
-            b[orderBy] = transformDateFromDate(b[orderBy]);
+            firstValue = transformDateFormatToRussianDate(firstValue);
+            secondValue = transformDateFormatToRussianDate(secondValue);
         }
         return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (secondValue > firstValue) {
         if (isDateValue) {
-            a[orderBy] = transformDateFromDate(a[orderBy]);
-            b[orderBy] = transformDateFromDate(b[orderBy]);
+            firstValue = transformDateFormatToRussianDate(firstValue);
+            secondValue = transformDateFormatToRussianDate(secondValue);
         }
         return 1;
     }
     if (isDateValue) {
-        a[orderBy] = transformDateFromDate(a[orderBy]);
-        b[orderBy] = transformDateFromDate(b[orderBy]);
+        firstValue = transformDateFormatToRussianDate(firstValue);
+        secondValue = transformDateFormatToRussianDate(secondValue);
     }
     return 0;
 }
