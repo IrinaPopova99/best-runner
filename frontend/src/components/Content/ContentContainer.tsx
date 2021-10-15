@@ -43,7 +43,6 @@ const ContentContainer: React.FC<ContentContainerType> = (props) => {
           selectedFilters={props.selectedFilters}
         />
       </Grid>
-
       <Content
         deleteWorkoutById={onDelete}
         workouts={props.workouts}

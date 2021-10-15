@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import "./HeaderRow.scss";
 import { SortOrder, Workout } from "../../../shared/types";
+import { useTranslation } from 'react-i18next';
 
 export type HeaderCellsType = { id: string; label: string };
 
@@ -26,6 +27,7 @@ const HeaderRow: React.FC<HeaderRowType> = ({
   orderBy,
   onRequestSort,
 }) => {
+  const { t } = useTranslation('workout');
   const createSortHandler = (property: string) => {
     onRequestSort(property);
   };
@@ -33,7 +35,7 @@ const HeaderRow: React.FC<HeaderRowType> = ({
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center">Выбрать</TableCell>
+        <TableCell align="center">{t('choose')}</TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -56,8 +58,8 @@ const HeaderRow: React.FC<HeaderRowType> = ({
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell align="center">Тип тренировки</TableCell>
-        <TableCell align="center">Комментарий</TableCell>
+        <TableCell align="center">{t('typeWorkout')}</TableCell>
+        <TableCell align="center">{t('comment')}</TableCell>
       </TableRow>
     </TableHead>
   );

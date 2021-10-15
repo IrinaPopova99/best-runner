@@ -8,6 +8,7 @@ import {
 import Chart from "./Chart";
 import Select from "react-select";
 import { Workout } from "../../shared/types";
+import { useTranslation } from 'react-i18next';
 
 const arrayOfWeeks = createArrayOfWeeks();
 const arrayOfWeekDays = getNameWeekDaysWithDistancePerDay();
@@ -17,6 +18,7 @@ const data = arrayOfWeeks.map((item, index) => ({
 }));
 
 const ChartPage: React.FC<{ workouts: Workout[] }> = ({ workouts }) => {
+  const { t } = useTranslation('chart');
   const [selectedWeek, setSelectedWeek] = useState<number>(1);
   const dataForChart = useMemo(() => createObjectOfWeekdaysWithDistancePerDay(workouts), [workouts]);
   console.log(dataForChart);
@@ -27,7 +29,7 @@ const ChartPage: React.FC<{ workouts: Workout[] }> = ({ workouts }) => {
         <Select
           options={data}
           onChange={(event) => setSelectedWeek(event!.value)}
-          placeholder="Выберите неделю:"
+          placeholder={t('chooseWeek')}
         />
       </Grid>
       <Grid container item md={8} xs={12} justify="flex-start">

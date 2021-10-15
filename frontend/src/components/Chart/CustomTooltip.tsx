@@ -1,4 +1,5 @@
 import React from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 type CustomTooltipProps = {
   payload: any;
@@ -13,11 +14,18 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   active,
   styleClass,
 }) => {
+  const { t } = useTranslation("chart");
+  const distance = payload[0].value;
+
   if (active) {
     return (
       <div className={`custom-tooltip ${styleClass}`}>
         <p>{label}</p>
-        <p>{`${payload[0].value} км`}</p>
+        <p>
+          <Trans t={t} i18nKey="distance">
+            {{ distance }} км
+          </Trans>
+        </p>
       </div>
     );
   }

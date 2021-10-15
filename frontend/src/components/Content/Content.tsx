@@ -11,7 +11,8 @@ import "./Content.scss";
 import { useSelectRows } from "../../utils/useSelectRows";
 import { DarkOrLightThemeContext } from "../../context";
 import { TableStyle } from "../../DarkMode";
-import { Workout, ErrorRequest, SortOrder } from "../../shared/types";
+import { Workout, ErrorRequest, SortOrder, TypeModal } from "../../shared/types";
+import { workoutValidationErrorMessages } from "../../constants";
 
 type ContentType = {
   workouts: Workout[];
@@ -22,7 +23,7 @@ type ContentType = {
 
 const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWorkoutById }) => {
   const [open, setOpen] = useState(false);
-  const [typeModal, setTypeModal] = useState("");
+  const [typeModal, setTypeModal] = useState<TypeModal>("");
   const [comment, setComment] = useState("");
   const [order, setOrder] = useState<SortOrder>("asc");
   const [orderBy, setOrderBy] = useState<keyof Workout>("date");
@@ -65,7 +66,7 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
 
   const onEdit = () => {
     if (selected.length > 1) {
-      setErrorState("Можно выбрать только 1 элемент");
+      setErrorState(workoutValidationErrorMessages.onlyElement);
     } else {
       setErrorState(null);
       setTypeModal("edit");

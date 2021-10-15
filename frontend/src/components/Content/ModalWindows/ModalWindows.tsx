@@ -6,6 +6,7 @@ import { IconButton } from "@material-ui/core";
 import "./ModalWindow.scss";
 import CloseIcon from "@material-ui/icons/Close";
 import { Workout } from "../../../shared/types";
+import { useTranslation } from 'react-i18next';
 
 type ModalWindowsType = {
   handleClose(): void;
@@ -22,6 +23,7 @@ const ModalWindows: React.FC<ModalWindowsType> = ({
   open,
   type,
 }) => {
+  const { t } = useTranslation('workout');
   Modal.setAppElement("#root");
   let content = null;
 
@@ -50,7 +52,7 @@ const ModalWindows: React.FC<ModalWindowsType> = ({
     <Modal
       isOpen={open}
       onRequestClose={handleClose}
-      contentLabel="Комментарий"
+      contentLabel={t('comment')}
       portalClassName={"modal-window"}
       style={{ content: { background: "none", border: "none" } }}
     >

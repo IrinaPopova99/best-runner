@@ -11,6 +11,7 @@ import { useSelectRows } from "../../../utils/useSelectRows";
 import { FilterStyle } from "../../../DarkMode";
 import { DarkOrLightThemeContext } from "../../../context";
 import { Filter } from "../../types";
+import { useTranslation } from 'react-i18next';
 
 type FilterType = {
   onToggleFilters(selected: Filter[]): void;
@@ -19,6 +20,7 @@ type FilterType = {
 }
 
 const Filters: React.FC<FilterType> = ({ onToggleFilters, labels, selectedFilters }) => {
+  const { t } = useTranslation('common');
   const { darkMode } = useContext(DarkOrLightThemeContext);
 
   const [handleSelect] = useSelectRows();
@@ -27,7 +29,6 @@ const Filters: React.FC<FilterType> = ({ onToggleFilters, labels, selectedFilter
     return selectedFilters.indexOf(id) !== -1;
   };
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    // const data = handleSelect(event);
     onToggleFilters(handleSelect(null, event));
   };
 
@@ -38,7 +39,7 @@ const Filters: React.FC<FilterType> = ({ onToggleFilters, labels, selectedFilter
   return (
     <FilterStyle theme={darkMode}>
       <FormControl component="fieldset" className="form-control">
-        <FormLabel component="legend">Фильтр&nbsp;по:</FormLabel>
+        <FormLabel component="legend">{t('filterBy')}</FormLabel>
         <FormGroup>
           {labels
             ? labels.map((item) => {
@@ -48,7 +49,6 @@ const Filters: React.FC<FilterType> = ({ onToggleFilters, labels, selectedFilter
                     key={item}
                     control={
                       <Checkbox
-                        // selected={isItemSelected}
                         checked={isItemSelected}
                         onClick={(event) => handleClick(event)}
                         name={item}

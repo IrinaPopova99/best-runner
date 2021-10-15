@@ -1,0 +1,1 @@
+export const typesWorkout = ["Бег", "Ходьба", "Велосипед", "Лыжи"];

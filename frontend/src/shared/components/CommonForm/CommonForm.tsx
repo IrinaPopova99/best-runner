@@ -9,6 +9,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Workout } from "../../types";
 import { today } from '../../../constants/date';
+import { typesWorkout } from "../../../constants";
+import { useTranslation } from "react-i18next";
 
 type CommonFormType = {
   handleClose(): void;
@@ -25,6 +27,8 @@ const CommonForm: React.FC<CommonFormType> = ({
   editOneWorkout,
   addNewWorkout,
 }) => {
+  const { t } = useTranslation(['common', 'workout']);
+
   const handleSubmit = (values: Workout) => {
     handleClose();
     if (typeForm === "edit" && selected.id) {
@@ -65,14 +69,8 @@ const CommonForm: React.FC<CommonFormType> = ({
         onBlur={formik.handleBlur}
         value={formik.values.typeWorkout}
         error={formik.touched.typeWorkout && Boolean(formik.errors.typeWorkout)}
-        // helperText={
-        //   formik.touched.typeWorkout ? formik.errors.typeWorkout : null
-        // }
       >
-        <MenuItem value={"Бег"}>Бег</MenuItem>
-        <MenuItem value={"Ходьба"}>Ходьба</MenuItem>
-        <MenuItem value={"Велосипед"}>Велосипед</MenuItem>
-        <MenuItem value={"Лыжи"}>Лыжи</MenuItem>
+        {typesWorkout.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
       </Select>
       <TextField
         error={formik.touched.kilometrage && Boolean(formik.errors.kilometrage)}
@@ -84,7 +82,7 @@ const CommonForm: React.FC<CommonFormType> = ({
         value={formik.values.kilometrage}
         className="form-container__input"
         id="kilometrage-input"
-        label="Дистанция"
+        label={t('workout:distance')}
         name="kilometrage"
       />
       <TextField
@@ -95,7 +93,7 @@ const CommonForm: React.FC<CommonFormType> = ({
         rows={4}
         helperText={formik.touched.comment ? formik.errors.comment : null}
         className="form-container__input"
-        label="Комментарий"
+        label={t('workout:comment')}
         name="comment"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -103,7 +101,7 @@ const CommonForm: React.FC<CommonFormType> = ({
       />
 
       <MyButton color="primary" type="submit">
-        Сохранить
+        {t('buttons.save')}
       </MyButton>
     </form>
   );

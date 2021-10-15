@@ -1,0 +1,12 @@
+{
+  "buttons": {
+    "save": "Сохранить",
+    "add": "Добавить",
+    "delete": "Удалить",
+    "change": "Изменить"
+  },
+  "filterBy": "Фильтр по",
+  "hightRegime": "Ночной режим",
+  "logoTitle": "BestRunner",
+  "noComments": "Нет"
+}
