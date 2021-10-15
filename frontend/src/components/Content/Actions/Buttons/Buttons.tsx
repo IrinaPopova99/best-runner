@@ -15,13 +15,13 @@ const Buttons: React.FC<ActionsType> = ({
   return (
     <div>
       <MyButton action={onAdd} isDisabled={false}>
-        {t("add")}
+        {t("buttons.add")}
       </MyButton>
       <MyButton action={onDelete} isDisabled={isDisabled} color="secondary">
-        {t("delete")}
+        {t("buttons.delete")}
       </MyButton>
       <MyButton action={onEdit} isDisabled={isDisabled} color="primary">
-        {t("change")}
+        {t("buttons.change")}
       </MyButton>
     </div>
   );
