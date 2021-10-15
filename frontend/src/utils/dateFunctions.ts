@@ -15,43 +15,43 @@ export const getWeekNumber = (currentDate: Date) => {
     (currentDate.getTime() - firstDayOfCurrentYear.getTime()) / msInDay;
 
   return Math.ceil(
-    (passedDaysInCurrentYear + firstDayOfCurrentYear.getDay()) /
-      daysInWeek
+    (passedDaysInCurrentYear + firstDayOfCurrentYear.getDay()) / daysInWeek
   );
 };
 
-export const getNameWeekDaysWithDistancePerDay = (): NameWeekDaysWithDistancePerDay[] => {
-  return [
-    {
-      name: "ПН",
-      distance: 0,
-    },
-    {
-      name: "ВТ",
-      distance: 0,
-    },
-    {
-      name: "СР",
-      distance: 0,
-    },
-    {
-      name: "ЧТ",
-      distance: 0,
-    },
-    {
-      name: "ПТ",
-      distance: 0,
-    },
-    {
-      name: "СБ",
-      distance: 0,
-    },
-    {
-      name: "ВС",
-      distance: 0,
-    },
-  ];
-};
+export const getNameWeekDaysWithDistancePerDay =
+  (): NameWeekDaysWithDistancePerDay[] => {
+    return [
+      {
+        name: "ПН",
+        distance: 0,
+      },
+      {
+        name: "ВТ",
+        distance: 0,
+      },
+      {
+        name: "СР",
+        distance: 0,
+      },
+      {
+        name: "ЧТ",
+        distance: 0,
+      },
+      {
+        name: "ПТ",
+        distance: 0,
+      },
+      {
+        name: "СБ",
+        distance: 0,
+      },
+      {
+        name: "ВС",
+        distance: 0,
+      },
+    ];
+  };
 
 const fixWeekdays = (day: number) => {
   if (day === 0) {
@@ -61,15 +61,31 @@ const fixWeekdays = (day: number) => {
 };
 
 // Create an object and counting kilometers for each day of the week
-export const createObjectOfWeekdaysWithDistancePerDay = (data: Workout[]): NameWeekDaysWithDistancePerDay[][] => {
-  const weeksWithData: NameWeekDaysWithDistancePerDay[][] = [];
+export const createObjectOfWeekdaysWithDistancePerDay = (
+  data: Workout[]
+): { weekNumber: number; distance: NameWeekDaysWithDistancePerDay[] }[] => {
+  const weeksWithData: {
+    weekNumber: number;
+    distance: NameWeekDaysWithDistancePerDay[];
+  }[] = [];
   data.forEach((item) => {
     const numberWeek = getWeekNumber(new Date(item.date));
-    if (!weeksWithData[numberWeek]) {
-      weeksWithData[numberWeek] = getNameWeekDaysWithDistancePerDay();
+
+    if (
+      !weeksWithData.some((item) => Object.values(item).includes(numberWeek))
+    ) {
+      weeksWithData.push({
+        weekNumber: numberWeek,
+        distance: getNameWeekDaysWithDistancePerDay(),
+      });
     }
-    weeksWithData[numberWeek][fixWeekdays(item.date.getDay())].distance +=
-      +item.kilometrage;
+
+    weeksWithData.forEach((week) => {
+      if (week.weekNumber === numberWeek) {
+        week.distance[fixWeekdays(item.date.getDay())].distance +=
+          +item.kilometrage;
+      }
+    });
   });
   return weeksWithData;
 };

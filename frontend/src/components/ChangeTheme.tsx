@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { ChangeThemeButton } from "../DarkMode";
-import { ThemeContext } from "../context";
+import { DarkOrLightThemeContext } from "../context";
 
-function ChangeTheme({ toggleDarkMode }) {
-  const { darkMode } = useContext(ThemeContext);
+type ChangeThemeProps = {
+  toggleDarkMode: () => void;
+};
+
+const ChangeTheme: React.FC<ChangeThemeProps> = ({ toggleDarkMode }) => {
+  const { darkMode } = useContext(DarkOrLightThemeContext);
 
   return (
     <ChangeThemeButton theme={darkMode}>
@@ -16,6 +20,6 @@ function ChangeTheme({ toggleDarkMode }) {
       />
     </ChangeThemeButton>
   );
-}
+};
 
 export default ChangeTheme;

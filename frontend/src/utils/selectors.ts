@@ -6,7 +6,7 @@ import { getWorkoutsWithCorrectDateFormat } from "./getWorkoutsWithCorrectDateFo
 const getVisibleFilters = (state: RootState) => state.filtersReducer.filters;
 
 export const getWorkouts = (state: RootState) =>
-  getWorkoutsWithCorrectDateFormat(state.workoutSlice.workouts);
+  getWorkoutsWithCorrectDateFormat(state.workoutSlice.workouts || []);
 
 export const getVisibleWorkouts = createSelector(
   [getVisibleFilters, getWorkouts],

@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { useSelectRows } from "../../../utils/useSelectRows";
 import { FilterStyle } from "../../../DarkMode";
-import { ThemeContext } from "../../../context";
+import { DarkOrLightThemeContext } from "../../../context";
 import { Filter } from "../../types";
 
 type FilterType = {
@@ -19,7 +19,7 @@ type FilterType = {
 }
 
 const Filters: React.FC<FilterType> = ({ onToggleFilters, labels, selectedFilters }) => {
-  const { darkMode } = useContext(ThemeContext);
+  const { darkMode } = useContext(DarkOrLightThemeContext);
 
   const [handleSelect] = useSelectRows();
 

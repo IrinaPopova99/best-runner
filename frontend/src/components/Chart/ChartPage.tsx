@@ -31,13 +31,13 @@ const ChartPage: React.FC<{ workouts: Workout[] }> = ({ workouts }) => {
         />
       </Grid>
       <Grid container item md={8} xs={12} justify="flex-start">
-        <Chart
+        {/* <Chart
           data={
             dataForChart[selectedWeek]
               ? dataForChart[selectedWeek]
               : arrayOfWeekDays
           }
-        />
+        /> */}
       </Grid>
     </Grid>
   );

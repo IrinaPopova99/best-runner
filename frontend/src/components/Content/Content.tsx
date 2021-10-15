@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import { Table, TableContainer, Paper, Grid } from "@material-ui/core";
-import { stableSort, getComparator } from "../../utils/sortFunctions";
+import { getSortedWorkouts } from "../../utils/sortFunctions";
 import Actions from "./Actions/Actions";
 import TableRows from "./TableRows/TableRows";
 import HeaderRow from "./HeaderRow/HeaderRow";
@@ -9,9 +9,9 @@ import ModalWindows from "./ModalWindows/ModalWindows";
 import AlertCustom from "../../shared/components/AlertError/AlertError";
 import "./Content.scss";
 import { useSelectRows } from "../../utils/useSelectRows";
-import { ThemeContext } from "../../context";
+import { DarkOrLightThemeContext } from "../../context";
 import { TableStyle } from "../../DarkMode";
-import { Workout, ErrorRequest } from "../../shared/types";
+import { Workout, ErrorRequest, SortOrder } from "../../shared/types";
 
 type ContentType = {
   workouts: Workout[];
@@ -20,16 +20,14 @@ type ContentType = {
   deleteWorkoutById: (ids: string[]) => void;
 };
 
-export type OrderType = 'asc' | 'desc' | undefined;
-
 const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWorkoutById }) => {
   const [open, setOpen] = useState(false);
   const [typeModal, setTypeModal] = useState("");
   const [comment, setComment] = useState("");
-  const [order, setOrder] = useState<OrderType>("asc");
+  const [order, setOrder] = useState<SortOrder>("asc");
   const [orderBy, setOrderBy] = useState<keyof Workout>("date");
   const [errorState, setErrorState] = useState<null | string>(null);
-  const { darkMode } = useContext(ThemeContext);
+  const { darkMode } = useContext(DarkOrLightThemeContext);
 
   const selectedRow = useRef<any>({});
 
@@ -103,7 +101,7 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
               onRequestSort={handleRequestSort}
             />
             <TableRows
-              rows={stableSort(workouts, getComparator(order, orderBy))}
+              rows={getSortedWorkouts(workouts, order, orderBy)}
               isSelected={isSelected}
               handleClick={handleClick}
               handleOpen={handleOpenComment}

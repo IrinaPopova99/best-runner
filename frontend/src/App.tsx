@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Route } from "react-router-dom";
 import Header from "./components/Header/Header";
-import { ThemeContext } from "./context";
+import { DarkOrLightThemeContext } from "./context";
 import { BodyStyle } from "./DarkMode";
 import ChangeTheme from './components/ChangeTheme';
 import ContentContainer from "./components/Content/ContentContainer";
@@ -16,7 +16,7 @@ const App = () => {
   }
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <DarkOrLightThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       <BodyStyle theme={darkMode}>
         <div className="app">
           <Header />
@@ -37,7 +37,7 @@ const App = () => {
           </Grid>
         </div>
       </BodyStyle>
-    </ThemeContext.Provider>
+    </DarkOrLightThemeContext.Provider>
   );
 };
 
