@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import { DarkOrLightThemeContext } from "./context";
 import { BodyStyle } from "./DarkMode";
 import ChangeTheme from './components/ChangeTheme';
-import ContentContainer from "./components/Content/ContentContainer";
+import ContentContainer from "./components/Table/TableContainer";
 import ChartPageContainer from './components/Chart/ChartPageContainer';
 
 const App = () => {

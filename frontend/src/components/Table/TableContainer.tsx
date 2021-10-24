@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { connect } from "react-redux";
-import Content from "./Content";
+import Table from "./Table";
 import {
   deleteWorkoutById,
   getWorkoutsAll,
 } from "../../redux/workouts/thunks";
 import { toggleFilters } from "../../redux/filter/actions";
 import Filters from "../../shared/components/Filter/Filters";
-import { getVisibleWorkouts, getTypesWorkouts } from "../../utils/selectors";
+import { getVisibleWorkouts, getTypesWorkouts } from "../../utils/selectors/selectors";
 import { ErrorRequest, Filter, RootState, Workout } from "../../shared/types";
 
 type ContentContainerType = {
@@ -43,7 +43,7 @@ const ContentContainer: React.FC<ContentContainerType> = (props) => {
           selectedFilters={props.selectedFilters}
         />
       </Grid>
-      <Content
+      <Table
         deleteWorkoutById={onDelete}
         workouts={props.workouts}
         error={props.error}

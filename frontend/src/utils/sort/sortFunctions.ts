@@ -1,4 +1,4 @@
-import { SortOrder, Workout } from "../shared/types";
+import { SortOrder, Workout } from "../../shared/types";
 
 const descendingComparator = (
   a: Workout,

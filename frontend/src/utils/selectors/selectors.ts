@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-import { RootState } from "../shared/types";
-import { filterWorkouts } from "./filterFunctions";
-import { getWorkoutsWithCorrectDateFormat } from "./getWorkoutsWithCorrectDateFormat";
+import { RootState } from "../../shared/types";
+import { filterWorkouts } from "../filter/filterFunctions";
+import { getWorkoutsWithCorrectDateFormat } from "../date/getWorkoutsWithCorrectDateFormat";
 
 const getVisibleFilters = (state: RootState) => state.filtersReducer.filters;
 

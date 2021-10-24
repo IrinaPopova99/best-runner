@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox, TableCell, TableRow, TableBody } from "@material-ui/core";
 import CommentIconButton from "./CommentIconButton";
 import { Workout } from "../../../shared/types";
-import { transformDateFormatToRussianFormat } from "../../../utils/dateFunctions";
+import { transformDateFormatToRussianFormat } from "../../../utils/date/dateFunctions";
 
 type TableRowsType = {
   rows: Workout[];

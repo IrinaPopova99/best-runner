@@ -1,4 +1,4 @@
-import { NameWeekDaysWithDistancePerDay, Workout } from "../shared/types";
+import { NameWeekDaysWithDistancePerDay, Workout } from "../../shared/types";
 
 const daysInWeek = 7;
 const firstMonth = 0;

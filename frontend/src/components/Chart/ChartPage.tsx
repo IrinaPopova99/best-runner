@@ -4,7 +4,7 @@ import {
   createObjectOfWeekdaysWithDistancePerDay,
   createArrayOfWeeks,
   getNameWeekDaysWithDistancePerDay,
-} from "../../utils/dateFunctions";
+} from "../../utils/date/dateFunctions";
 import Chart from "./Chart";
 import Select from "react-select";
 import { Workout } from "../../shared/types";

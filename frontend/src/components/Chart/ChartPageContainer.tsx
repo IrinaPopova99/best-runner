@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getWorkoutsAll } from "../../redux/workouts/thunks";
 import { RootState, Workout } from "../../shared/types";
 import ChartPage from './ChartPage';
-import { getWorkouts } from '../../utils/selectors';
+import { getWorkouts } from '../../utils/selectors/selectors';
 
 type ChartPageContainerType = {
   getWorkoutsAll: () => void;

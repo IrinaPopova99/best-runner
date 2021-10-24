@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import { useSelectRows } from "../../../utils/useSelectRows";
+import { useSelectRows } from "../../hooks/useSelectRows";
 import { FilterStyle } from "../../../DarkMode";
 import { DarkOrLightThemeContext } from "../../../context";
 import { Filter } from "../../types";

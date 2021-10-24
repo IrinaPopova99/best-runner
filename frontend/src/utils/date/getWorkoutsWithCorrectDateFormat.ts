@@ -1,4 +1,4 @@
-import { Workout } from "../shared/types";
+import { Workout } from "../../shared/types";
 
 export const getWorkoutsWithCorrectDateFormat = (workouts: Workout[]): Workout[] => {
   console.log(workouts)

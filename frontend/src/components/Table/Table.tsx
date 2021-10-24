@@ -1,14 +1,14 @@
 import React, { useState, useRef, useContext } from "react";
 import { Table, TableContainer, Paper, Grid } from "@material-ui/core";
-import { getSortedWorkouts } from "../../utils/sortFunctions";
+import { getSortedWorkouts } from "../../utils/sort/sortFunctions";
 import Actions from "./Actions/Actions";
 import TableRows from "./TableRows/TableRows";
 import HeaderRow from "./HeaderRow/HeaderRow";
 import Loading from "../../shared/components/Loading/Loading";
 import ModalWindows from "./ModalWindows/ModalWindows";
 import AlertCustom from "../../shared/components/AlertError/AlertError";
-import "./Content.scss";
-import { useSelectRows } from "../../utils/useSelectRows";
+import "./Table.scss";
+import { useSelectRows } from "../../shared/hooks/useSelectRows";
 import { DarkOrLightThemeContext } from "../../context";
 import { TableStyle } from "../../DarkMode";
 import { Workout, ErrorRequest, SortOrder, TypeModal } from "../../shared/types";
