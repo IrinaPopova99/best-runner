@@ -13,7 +13,7 @@ export type HeaderCellsType = { id: string; label: string };
 
 const headCells: HeaderCellsType[] = [
   { id: "date", label: "Дата" },
-  { id: "kilometrage", label: "Дистанция" },
+  { id: "distance", label: "Дистанция" },
 ];
 
 type HeaderRowType = {

@@ -1,8 +1,15 @@
 import { Workout } from "../shared/types";
-import instance from "./instance";
+import { instance } from "./instance";
 
-export const getWorkouts = (): Promise<Workout> => {
-  return instance.get(``).then((res) => res.data);
+export const getWorkouts = (page?: number, size?: number): Promise<Workout> => {
+  return instance
+    .get(``, {
+      params: {
+        size,
+        page,
+      },
+    })
+    .then((res) => res.data);
 };
 
 export const deleteWorkout = (ids: string[]): Promise<Workout> => {

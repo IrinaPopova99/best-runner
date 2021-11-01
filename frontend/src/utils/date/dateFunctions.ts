@@ -82,8 +82,8 @@ export const createObjectOfWeekdaysWithDistancePerDay = (
 
     weeksWithData.forEach((week) => {
       if (week.weekNumber === numberWeek) {
-        week.distance[fixWeekdays(item.date.getDay())].distance +=
-          +item.kilometrage;
+        week.distance[fixWeekdays(new Date(item.date).getDay())].distance +=
+          +item.distance;
       }
     });
   });

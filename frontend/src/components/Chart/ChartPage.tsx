@@ -9,30 +9,35 @@ import Chart from "./Chart";
 import Select from "react-select";
 import { Workout } from "../../shared/types";
 import { useTranslation } from 'react-i18next';
+import { useGetAllWorkoutsQuery } from "../../redux/workouts/workoutApi";
 
 const arrayOfWeeks = createArrayOfWeeks();
 const arrayOfWeekDays = getNameWeekDaysWithDistancePerDay();
-const data = arrayOfWeeks.map((item, index) => ({
+const valuesAndLabels = arrayOfWeeks.map((item, index) => ({
   value: index + 1,
   label: item,
 }));
 
-const ChartPage: React.FC<{ workouts: Workout[] }> = ({ workouts }) => {
+const ChartPage: React.FC = () => {
   const { t } = useTranslation('chart');
   const [selectedWeek, setSelectedWeek] = useState<number>(1);
+
+  const { isFetching, data, isLoading, error = {} } = useGetAllWorkoutsQuery({});
+  const workouts = useMemo(() => (data?.workouts || ([] as Workout[])), [data?.workouts]);
+
+
   const dataForChart = useMemo(() => createObjectOfWeekdaysWithDistancePerDay(workouts), [workouts]);
-  console.log(dataForChart);
 
   return (
-    <Grid container spacing={3} justify="center" alignItems="center">
-      <Grid container item md={3} xs={8} justify="flex-start">
+    <Grid container spacing={3} justifyContent="center" alignItems="center">
+      <Grid container item md={3} xs={8} justifyContent="flex-start">
         <Select
-          options={data}
+          options={valuesAndLabels}
           onChange={(event) => setSelectedWeek(event!.value)}
           placeholder={t('chooseWeek')}
         />
       </Grid>
-      <Grid container item md={8} xs={12} justify="flex-start">
+      <Grid container item md={8} xs={12} justifyContent="flex-start">
         {/* <Chart
           data={
             dataForChart[selectedWeek]

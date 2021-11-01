@@ -29,8 +29,8 @@ const TableRows: React.FC<TableRowsType> = ({
                 checked={isItemSelected}
               />
             </TableCell>
-            <TableCell align="center">{transformDateFormatToRussianFormat(row.date)}</TableCell>
-            <TableCell align="center">{row.kilometrage}</TableCell>
+            <TableCell align="center">{transformDateFormatToRussianFormat(new Date(row.date))}</TableCell>
+            <TableCell align="center">{row.distance}</TableCell>
             <TableCell align="center">{row.typeWorkout}</TableCell>
             <TableCell align="center">
               <CommentIconButton

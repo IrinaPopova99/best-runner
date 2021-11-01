@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import workoutSlice from './workouts/workoutSlice';
+import workoutSlice from './workoutsSlice/workoutSlice';
 import { filtersReducer } from './filter/reducer';
+import { workoutApi } from './workouts/workoutApi';
 
 export const rootReducer = combineReducers({
-  workoutSlice,
+  [workoutApi.reducerPath]: workoutApi.reducer,
   filtersReducer,
 });

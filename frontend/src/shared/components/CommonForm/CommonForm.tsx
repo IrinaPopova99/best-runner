@@ -11,6 +11,7 @@ import { Workout } from "../../types";
 import { today } from '../../../constants/date';
 import { typesWorkout } from "../../../constants";
 import { useTranslation } from "react-i18next";
+import { useCreateWorkoutMutation, useUpdateWorkoutMutation } from "../../../redux/workouts/workoutApi";
 
 type CommonFormType = {
   handleClose(): void;
@@ -28,21 +29,23 @@ const CommonForm: React.FC<CommonFormType> = ({
   addNewWorkout,
 }) => {
   const { t } = useTranslation(['common', 'workout']);
+  const [createWorkout] = useCreateWorkoutMutation();
+  const [updateWorkouts] = useUpdateWorkoutMutation();
 
   const handleSubmit = (values: Workout) => {
     handleClose();
     if (typeForm === "edit" && selected.id) {
       const id = selected.id;
-      return editOneWorkout(id, values);
+      return updateWorkouts({ id, workout: values });
     }
-    return addNewWorkout(values);
+    return createWorkout(values);
   };
 
   const formik = useFormik<Workout>({
     initialValues: {
       date: selected.date || today,
       typeWorkout: !selected.typeWorkout ? "" : selected.typeWorkout,
-      kilometrage: !selected.kilometrage ? 0 : selected.kilometrage,
+      distance: !selected.distance ? 0 : selected.distance,
       comment: !selected.comment ? "" : selected.comment,
     },
     validationSchema: validateSchema,
@@ -70,20 +73,20 @@ const CommonForm: React.FC<CommonFormType> = ({
         value={formik.values.typeWorkout}
         error={formik.touched.typeWorkout && Boolean(formik.errors.typeWorkout)}
       >
-        {typesWorkout.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
+        {typesWorkout.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
       </Select>
       <TextField
-        error={formik.touched.kilometrage && Boolean(formik.errors.kilometrage)}
+        error={formik.touched.distance && Boolean(formik.errors.distance)}
         helperText={
-          formik.touched.kilometrage ? formik.errors.kilometrage : null
+          formik.touched.distance ? formik.errors.distance : null
         }
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.kilometrage}
+        value={formik.values.distance}
         className="form-container__input"
-        id="kilometrage-input"
+        id="distance-input"
         label={t('workout:distance')}
-        name="kilometrage"
+        name="distance"
       />
       <TextField
         error={formik.touched.comment && Boolean(formik.errors.comment)}

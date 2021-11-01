@@ -12,7 +12,7 @@ export const { fieldRequired, isNotNumber, maxLength } =
 export const validateSchema = Yup.object().shape({
   date: Yup.date().required(fieldRequired),
   typeWorkout: Yup.string().required(fieldRequired),
-  kilometrage: Yup.string()
+  distance: Yup.string()
     .required(fieldRequired)
     .max(maxNumberLength, maxLength(maxNumberLength))
     .matches(regExpForNumber, isNotNumber),

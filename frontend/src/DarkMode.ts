@@ -18,6 +18,8 @@ export const BodyStyle = styled.div`
 `;
 
 export const TableStyle = styled.div`
+  margin-bottom: 20px;
+
   & table {
     ${(props) =>
       props.theme
@@ -31,7 +33,6 @@ export const TableStyle = styled.div`
   label {
     color: ${(props) => (props.theme ? "#dae4fb" : "rgba(0, 0, 0, 0.60)")};
   }
-  
 `;
 
 export const ChangeThemeButton = styled.div`

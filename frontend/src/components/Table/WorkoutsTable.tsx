@@ -1,5 +1,6 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, ChangeEvent } from "react";
 import { Table, TableContainer, Paper, Grid } from "@material-ui/core";
+import Pagination from '@material-ui/lab/Pagination';
 import { getSortedWorkouts } from "../../utils/sort/sortFunctions";
 import Actions from "./Actions/Actions";
 import TableRows from "./TableRows/TableRows";
@@ -13,21 +14,33 @@ import { DarkOrLightThemeContext } from "../../context";
 import { TableStyle } from "../../DarkMode";
 import { Workout, ErrorRequest, SortOrder, TypeModal } from "../../shared/types";
 import { workoutValidationErrorMessages } from "../../constants";
+import { useDeleteWorkoutsMutation, useGetAllWorkoutsQuery } from "../../redux/workouts/workoutApi";
 
 type ContentType = {
   workouts: Workout[];
   error: ErrorRequest;
   isLoading: boolean;
   deleteWorkoutById: (ids: string[]) => void;
+  totalPages: number;
 };
 
-const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWorkoutById }) => {
+// const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWorkoutById, totalPages }) => {
+const WorkoutsTable: React.FC = () => {
+
   const [open, setOpen] = useState(false);
   const [typeModal, setTypeModal] = useState<TypeModal>("");
   const [comment, setComment] = useState("");
   const [order, setOrder] = useState<SortOrder>("asc");
   const [orderBy, setOrderBy] = useState<keyof Workout>("date");
   const [errorState, setErrorState] = useState<null | string>(null);
+  const [page, setPage] = useState<number>(1);
+
+  const { data, isLoading, error = {} } = useGetAllWorkoutsQuery({ page });
+  const [deleteWorkouts] = useDeleteWorkoutsMutation();
+
+  const workouts = data?.workouts || ([] as Workout[]);
+  const totalPages = data?.totalPages || 1;
+
   const { darkMode } = useContext(DarkOrLightThemeContext);
 
   const selectedRow = useRef<any>({});
@@ -36,6 +49,10 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
 
   const isSelected = (id: string) => {
     return selected.indexOf(id) !== -1;
+  };
+
+  const handleChangePage = (event: ChangeEvent<any>, value: number) => {
+    setPage(value);
   };
 
   const handleClick = (event: React.MouseEvent, id: string, row: Workout) => {
@@ -54,7 +71,8 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
   };
 
   const onDelete = () => {
-    deleteWorkoutById(selected);
+    deleteWorkouts({ ids: selected });
+    // deleteWorkoutById(selected);
     setSelected([]);
     selectedRow.current.value = {};
   };
@@ -86,11 +104,12 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
       <Actions
         selected={selected}
         onDelete={onDelete}
+        // onDelete={() => console.log('click')}
         onAdd={onAdd}
         onEdit={onEdit}
       />
       <Grid item md={12} xs={12}>
-        <AlertCustom error={error || errorState} />
+        <AlertCustom error={('data' in error) ? error?.data as string : ''} />
         <Loading isLoading={isLoading} />
       </Grid>
       <TableStyle theme={darkMode}>
@@ -110,7 +129,7 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
           </Table>
         </TableContainer>
       </TableStyle>
-
+      <Pagination count={totalPages} color="primary" onChange={handleChangePage} page={page} />
       <ModalWindows
         handleClose={handleClose}
         selected={selectedRow.current.value}
@@ -122,4 +141,4 @@ const Content: React.FC<ContentType> = ({ workouts, error, isLoading, deleteWork
   );
 };
 
-export default Content;
+export default WorkoutsTable;

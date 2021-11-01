@@ -9,12 +9,14 @@ import {
 
 type InitialStateWorkout = {
   workouts: Workout[];
+  totalPages: number;
   isLoading: boolean;
   error: ErrorRequest;
 };
 
 let initialState: InitialStateWorkout = {
   workouts: [],
+  totalPages: 1,
   isLoading: true,
   error: "",
 };
@@ -29,7 +31,8 @@ const workoutSlice = createSlice({
         getWorkoutsAll.fulfilled,
         (state, action: PayloadAction<any>) => ({
           ...state,
-          workouts: action.payload,
+          totalPages: action.payload.totalPages,
+          workouts: action.payload.workouts,
           isLoading: false,
           error: null,
         })
@@ -93,7 +96,7 @@ const workoutSlice = createSlice({
                 id: action.payload.id,
                 date: action.payload.date,
                 typeWorkout: action.payload.typeWorkout,
-                kilometrage: action.payload.kilometrage,
+                distance: action.payload.distance,
                 comment: action.payload.comment,
               };
             }

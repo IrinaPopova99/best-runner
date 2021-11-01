@@ -5,12 +5,12 @@ import {
   editWorkout,
 } from "../../api/workoutAPI";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Workout } from "../../shared/types";
+import { Pagination, Workout } from "../../shared/types";
 
 export const getWorkoutsAll = createAsyncThunk(
   "workout/getWorkoutsAll",
-  async () => {
-    const response = await getWorkouts();
+  async ({ size, page }: Pagination) => {
+    const response = await getWorkouts(page, size);
     return response;
   }
 );

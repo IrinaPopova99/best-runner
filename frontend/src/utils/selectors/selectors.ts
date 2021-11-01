@@ -5,19 +5,19 @@ import { getWorkoutsWithCorrectDateFormat } from "../date/getWorkoutsWithCorrect
 
 const getVisibleFilters = (state: RootState) => state.filtersReducer.filters;
 
-export const getWorkouts = (state: RootState) =>
-  getWorkoutsWithCorrectDateFormat(state.workoutSlice.workouts || []);
+// export const getWorkouts = (state: RootState) =>
+//   getWorkoutsWithCorrectDateFormat(state.workoutSlice.workouts || []);
 
-export const getVisibleWorkouts = createSelector(
-  [getVisibleFilters, getWorkouts],
-  (filters, workouts) => {
-    if (filters.length !== 0) {
-      return filterWorkouts(workouts, filters);
-    }
-    return workouts;
-  }
-);
+// export const getVisibleWorkouts = createSelector(
+//   [getVisibleFilters, getWorkouts],
+//   (filters, workouts) => {
+//     if (filters.length !== 0) {
+//       return filterWorkouts(workouts, filters);
+//     }
+//     return workouts;
+//   }
+// );
 
-export const getTypesWorkouts = createSelector([getWorkouts], (workouts) =>
-  workouts.map((workout) => workout.typeWorkout)
-);
+// export const getTypesWorkouts = createSelector([getWorkouts], (workouts) =>
+//   workouts.map((workout) => workout.typeWorkout)
+// );

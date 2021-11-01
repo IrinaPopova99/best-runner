@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNewWorkout, editOneWorkout } from "../../../redux/workouts/thunks";
+import { addNewWorkout, editOneWorkout } from "../../../redux/workoutsSlice/thunks";
 import { RootState, Workout } from "../../types";
 import CommonForm from "./CommonForm";
 

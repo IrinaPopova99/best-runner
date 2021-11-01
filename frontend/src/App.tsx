@@ -5,8 +5,9 @@ import Header from "./components/Header/Header";
 import { DarkOrLightThemeContext } from "./context";
 import { BodyStyle } from "./DarkMode";
 import ChangeTheme from './components/ChangeTheme';
-import ContentContainer from "./components/Table/TableContainer";
-import ChartPageContainer from './components/Chart/ChartPageContainer';
+// import ContentContainer from "./components/Table/TableContainer";
+import ChartPage from './components/Chart/ChartPage';
+import WorkoutsTable from "./components/Table/WorkoutsTable";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -21,17 +22,19 @@ const App = () => {
         <div className="app">
           <Header />
           <ChangeTheme toggleDarkMode={toggleDarkMode} />
-          <Grid container justify="center" alignItems="center">
+          <Grid container justifyContent="center" alignItems="center">
             <Grid container item xs={11}>
               <Route
                 exact
                 path="/"
-                render={() => <ContentContainer />}
+                // render={() => <ContentContainer />}
+                render={() => <WorkoutsTable />}
               />
               <Route
                 exact
                 path="/chart"
-                render={() => <ChartPageContainer />}
+                render={() => <ChartPage />}
+                // render={() => <ChartPageContainer />}
               />
             </Grid>
           </Grid>
