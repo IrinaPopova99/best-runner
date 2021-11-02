@@ -1,4 +1,4 @@
-import { NameWeekDaysWithDistancePerDay, Workout } from "../../shared/types";
+import { NameWeekDaysWithDistancePerDay, WeeksWithData, Workout } from "../../shared/types";
 
 const daysInWeek = 7;
 const firstMonth = 0;
@@ -63,11 +63,8 @@ const fixWeekdays = (day: number) => {
 // Create an object and counting kilometers for each day of the week
 export const createObjectOfWeekdaysWithDistancePerDay = (
   data: Workout[]
-): { weekNumber: number; distance: NameWeekDaysWithDistancePerDay[] }[] => {
-  const weeksWithData: {
-    weekNumber: number;
-    distance: NameWeekDaysWithDistancePerDay[];
-  }[] = [];
+): WeeksWithData[] => {
+  const weeksWithData: WeeksWithData[] = [];
   data.forEach((item) => {
     const numberWeek = getWeekNumber(new Date(item.date));
 
@@ -76,13 +73,13 @@ export const createObjectOfWeekdaysWithDistancePerDay = (
     ) {
       weeksWithData.push({
         weekNumber: numberWeek,
-        distance: getNameWeekDaysWithDistancePerDay(),
+        distancesPerDay: getNameWeekDaysWithDistancePerDay(),
       });
     }
 
     weeksWithData.forEach((week) => {
       if (week.weekNumber === numberWeek) {
-        week.distance[fixWeekdays(new Date(item.date).getDay())].distance +=
+        week.distancesPerDay[fixWeekdays(new Date(item.date).getDay())].distance +=
           +item.distance;
       }
     });

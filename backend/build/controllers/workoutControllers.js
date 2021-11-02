@@ -1,21 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateWorkout = exports.deleteWorkout = exports.createWorkout = exports.getWorkoutById = exports.getWorkouts = void 0;
+exports.updateWorkout = exports.deleteWorkout = exports.createWorkout = exports.getWorkoutById = exports.getTypesWorkout = exports.getWorkouts = void 0;
 const uuid_1 = require("uuid");
 const workouts_1 = require("../data/workouts");
 const isIncomingIdsIncludesId_1 = require("../utils/isIncomingIdsIncludesId");
 const getWorkouts = (req, res) => {
     try {
         const { size, page, filter } = req.query;
-        // console.log({ size, page, filter });
         const filteredWorkouts = getFilteredData(workouts_1.workouts, filter);
         const workoutsWithPagination = getPaginatedData(filteredWorkouts, +size, +page);
-        const totalPages = !!(+size && +page) ? Math.ceil(workouts_1.workouts.length / +size) : 1;
-        // console.log(!!(+size && +page));
-        // console.log(Math.floor(workouts.length / +size));    
+        const totalPages = !!(+size && +page) ? Math.ceil(filteredWorkouts.length / +size) : 1;
+        const typesWorkout = getTypesWorkout(workouts_1.workouts);
         res.send({
             workouts: workoutsWithPagination,
             totalPages,
+            typesWorkout,
         });
     }
     catch (error) {
@@ -36,6 +35,12 @@ function getPaginatedData(data, size, page) {
     }
     return data;
 }
+function getTypesWorkout(workouts) {
+    const typesWorkout = new Set();
+    workouts.forEach((item) => typesWorkout.add(item.typeWorkout));
+    return Array.from(typesWorkout);
+}
+exports.getTypesWorkout = getTypesWorkout;
 const getWorkoutById = (req, res) => {
     try {
         const { id } = req.params;

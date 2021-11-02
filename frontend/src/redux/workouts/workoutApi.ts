@@ -1,30 +1,33 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { localServerURL } from "../../api/instance";
-import { Pagination, Workout } from "../../shared/types";
+import { Filter, Pagination, Params, Workout } from "../../shared/types";
 
 export type RequestSuccess = {
   workouts: Workout[];
   totalPages: number;
+  typesWorkout: string[];
 };
+
+export const getHeader = (headers: Headers) => {
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  return headers;
+}
 
 export const workoutApi = createApi({
   reducerPath: "workoutApi",
   tagTypes: ["Workouts"],
   baseQuery: fetchBaseQuery({
     baseUrl: localServerURL,
-    prepareHeaders: (headers) => {
-      headers.set("Access-Control-Allow-Origin", "*");
-      headers.set(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-      );
-      return headers;
-    },
+    prepareHeaders: (headers) => getHeader(headers),
   }),
   endpoints: (builder) => ({
-    getAllWorkouts: builder.query<RequestSuccess, Pagination>({
-      query: (pagination: Pagination | undefined) => ({
-        url: `?size=${pagination?.size || 5}&page=${pagination?.page}`,
+    getAllWorkouts: builder.query<RequestSuccess, Params>({
+      query: (params: Params | undefined) => ({
+        url: `?size=${params?.size || 5}&page=${params?.page || 1}${params?.filters ? `&filter=${params?.filters}` : ''}`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Workouts" }],

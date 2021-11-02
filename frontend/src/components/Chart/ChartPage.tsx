@@ -38,13 +38,14 @@ const ChartPage: React.FC = () => {
         />
       </Grid>
       <Grid container item md={8} xs={12} justifyContent="flex-start">
-        {/* <Chart
-          data={
-            dataForChart[selectedWeek]
-              ? dataForChart[selectedWeek]
-              : arrayOfWeekDays
-          }
-        /> */}
+        <Chart
+          data={dataForChart[selectedWeek] || []}
+          // data={
+          //   dataForChart[selectedWeek]
+          //     ? dataForChart[selectedWeek]
+          //     : arrayOfWeekDays
+          // }
+        />
       </Grid>
     </Grid>
   );

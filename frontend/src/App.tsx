@@ -7,7 +7,7 @@ import { BodyStyle } from "./DarkMode";
 import ChangeTheme from './components/ChangeTheme';
 // import ContentContainer from "./components/Table/TableContainer";
 import ChartPage from './components/Chart/ChartPage';
-import WorkoutsTable from "./components/Table/WorkoutsTable";
+import { WorkoutsTable } from "./components/Table/WorkoutsTable";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);

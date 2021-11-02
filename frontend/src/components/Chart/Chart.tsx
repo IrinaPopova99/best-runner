@@ -1,10 +1,10 @@
 import React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
-import { NameWeekDaysWithDistancePerDay } from "../../shared/types";
+import { NameWeekDaysWithDistancePerDay, WeeksWithData } from "../../shared/types";
 import "./Chart.scss";
 
 type ChartProps = {
-  data: NameWeekDaysWithDistancePerDay[];
+  data: WeeksWithData;
 };
 
 const Chart: React.FC<ChartProps> = ({ data }) => (
@@ -12,7 +12,7 @@ const Chart: React.FC<ChartProps> = ({ data }) => (
     <LineChart
       width={600}
       height={300}
-      data={data}
+      data={data.distancesPerDay}
       margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
     >
       <Line type="monotone" dataKey="data" stroke="#8884d8" />

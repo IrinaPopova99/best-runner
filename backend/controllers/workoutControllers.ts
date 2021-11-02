@@ -6,7 +6,6 @@ import { isIncomingIdsIncludesId } from "../utils/isIncomingIdsIncludesId";
 export const getWorkouts = (req, res) => {
   try {
     const { size, page, filter } = req.query;
-    // console.log({ size, page, filter });
 
     const filteredWorkouts = getFilteredData(workouts, filter);
     const workoutsWithPagination = getPaginatedData(
@@ -14,13 +13,13 @@ export const getWorkouts = (req, res) => {
       +size,
       +page
     );
-    const totalPages = !!(+size && +page) ? Math.ceil(workouts.length / +size) : 1;
-    // console.log(!!(+size && +page));
-    // console.log(Math.floor(workouts.length / +size));    
+    const totalPages = !!(+size && +page) ? Math.ceil(filteredWorkouts.length / +size) : 1;
+    const typesWorkout = getTypesWorkout(workouts);
 
     res.send({
       workouts: workoutsWithPagination,
       totalPages,
+      typesWorkout,
     });
   } catch (error) {
     console.log(error);
@@ -40,6 +39,13 @@ function getPaginatedData(data: Workout[], size: number, page: number) {
     return data.slice(size * (page - 1), size * page);
   }
   return data;
+}
+
+export function getTypesWorkout(workouts: Workout[]) {
+  const typesWorkout = new Set<string>();
+  workouts.forEach((item) => typesWorkout.add(item.typeWorkout));
+
+  return Array.from(typesWorkout);
 }
 
 export const getWorkoutById = (req, res) => {
