@@ -1,6 +1,9 @@
 import { v4 as uuid4 } from "uuid";
+import { errorMessage } from "../constants/errors";
 import { workouts } from "../data/workouts";
-import { TypeWorkout, Workout } from "../types/workout";
+import { getFilteredData } from "../utils/getFilteredData";
+import { getPaginatedData } from "../utils/getPaginatedData";
+import { getWorkoutTypes } from "../utils/getTypesWorkout";
 import { isIncomingIdsIncludesId } from "../utils/isIncomingIdsIncludesId";
 
 export const getWorkouts = (req, res) => {
@@ -14,7 +17,7 @@ export const getWorkouts = (req, res) => {
       +page
     );
     const totalPages = !!(+size && +page) ? Math.ceil(filteredWorkouts.length / +size) : 1;
-    const typesWorkout = getTypesWorkout(workouts);
+    const typesWorkout = getWorkoutTypes(workouts);
 
     res.send({
       workouts: workoutsWithPagination,
@@ -23,70 +26,51 @@ export const getWorkouts = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Something goes wrong");
+    res.status(500).send(errorMessage);
   }
 };
-
-function getFilteredData(data: Workout[], filter?: string) {
-  if (filter) {
-    return data.filter((item) => filter.includes(item.typeWorkout));
-  }
-  return data;
-}
-
-function getPaginatedData(data: Workout[], size: number, page: number) {
-  if (size && page) {
-    return data.slice(size * (page - 1), size * page);
-  }
-  return data;
-}
-
-export function getTypesWorkout(workouts: Workout[]) {
-  const typesWorkout = new Set<string>();
-  workouts.forEach((item) => typesWorkout.add(item.typeWorkout));
-
-  return Array.from(typesWorkout);
-}
 
 export const getWorkoutById = (req, res) => {
   try {
     const { id } = req.params;
     const foundWorkout = workouts.find((workout) => workout.id === id);
+
     res.send(foundWorkout);
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(errorMessage);
   }
 };
 
 export const createWorkout = (req, res) => {
   try {
-    let workout = req.body;
+    const workout = req.body;
     const workoutWithId = { ...workout, id: uuid4() };
+
     workouts.push(workoutWithId);
+
     res.send(workoutWithId);
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(errorMessage);
   }
 };
 
 export const deleteWorkout = (req, res) => {
   try {
     const ids: string[] = req.params.id.split(",");
-    console.log(ids);
+
     const indexesForDeleting = workouts.map(function (workout, i) {
       if (isIncomingIdsIncludesId(workout.id, ids)) return i;
     });
-    console.log(indexesForDeleting);
+
     indexesForDeleting.forEach((index) => {
       if (index || index === 0 ) {
         workouts.splice(index, 1);
       }
     });
-    console.log(workouts.length);
 
     res.send(workouts);
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(errorMessage);
   }
 };
 
@@ -100,10 +84,10 @@ export const updateWorkout = (req, res) => {
     if (date) workout.date = date;
     if (typeWorkout) workout.typeWorkout = typeWorkout;
     if (distance) workout.distance = distance;
-    if (comment) workout.comment = comment;
+    if (comment || comment === '') workout.comment = comment;
 
     res.send(workout);
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(errorMessage);
   }
 };

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { localServerURL } from "../../api/instance";
-import { Filter, Pagination, Params, Workout } from "../../shared/types";
+import { Params, Workout } from "../../shared/types";
 
 export type RequestSuccess = {
   workouts: Workout[];
