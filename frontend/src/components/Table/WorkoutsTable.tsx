@@ -29,7 +29,7 @@ import { workoutValidationErrorMessages } from "../../constants";
 import {
   useDeleteWorkoutsMutation,
   useGetAllWorkoutsQuery,
-} from "../../redux/workouts/workoutApi";
+} from "../../api/workoutApi";
 import Filters from "../../shared/components/Filter/Filters";
 
 type ContentType = {
@@ -146,7 +146,7 @@ export const WorkoutsTable: React.FC = () => {
           onEdit={onEdit}
         />
         <Grid item md={12} xs={12}>
-          <AlertCustom error={"data" in error ? (error?.data as string) : ""} />
+          <AlertCustom error={"data" in error ? (error?.data as string) : errorState} />
           <Loading isLoading={isLoading} />
         </Grid>
         <TableStyle theme={darkMode}>

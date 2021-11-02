@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./rootReducer";
-import { workoutApi } from './workouts/workoutApi';
+import { workoutApi } from '../api/workoutApi';
 
 export const store = configureStore({ 
   reducer:

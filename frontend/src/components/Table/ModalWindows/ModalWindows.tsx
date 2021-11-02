@@ -1,6 +1,6 @@
 import React from "react";
 import Comment from "../Comment/Comment";
-import CommonFormContainer from "../../../shared/components/CommonForm/CommonFormContainer";
+import CommonForm from "../../../shared/components/CommonForm/CommonForm";
 import Modal from "react-modal";
 import { IconButton } from "@material-ui/core";
 import "./ModalWindow.scss";
@@ -8,7 +8,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Workout } from "../../../shared/types";
 import { useTranslation } from 'react-i18next';
 
-type ModalWindowsType = {
+type ModalWindowsProps = {
   handleClose(): void;
   selected: Workout;
   text: string;
@@ -16,7 +16,7 @@ type ModalWindowsType = {
   type: string;
 };
 
-const ModalWindows: React.FC<ModalWindowsType> = ({
+const ModalWindows: React.FC<ModalWindowsProps> = ({
   handleClose,
   selected,
   text,
@@ -33,12 +33,12 @@ const ModalWindows: React.FC<ModalWindowsType> = ({
       break;
     case "add":
       content = (
-        <CommonFormContainer handleClose={handleClose} typeForm="add" />
+        <CommonForm handleClose={handleClose} typeForm="add" />
       );
       break;
     case "edit":
       content = (
-        <CommonFormContainer
+        <CommonForm
           handleClose={handleClose}
           selected={selected}
           typeForm="edit"

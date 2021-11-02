@@ -11,22 +11,18 @@ import { Workout } from "../../types";
 import { today } from '../../../constants/date';
 import { typesWorkout } from "../../../constants";
 import { useTranslation } from "react-i18next";
-import { useCreateWorkoutMutation, useUpdateWorkoutMutation } from "../../../redux/workouts/workoutApi";
+import { useCreateWorkoutMutation, useUpdateWorkoutMutation } from "../../../api/workoutApi";
 
 type CommonFormType = {
   handleClose(): void;
   selected?: Workout;
   typeForm: string;
-  editOneWorkout: (id: string, data: Workout) => void;
-  addNewWorkout: (data: Workout) => void;
 }
 
 const CommonForm: React.FC<CommonFormType> = ({
   handleClose,
   selected = {},
   typeForm,
-  editOneWorkout,
-  addNewWorkout,
 }) => {
   const { t } = useTranslation(['common', 'workout']);
   const [createWorkout] = useCreateWorkoutMutation();
@@ -35,8 +31,7 @@ const CommonForm: React.FC<CommonFormType> = ({
   const handleSubmit = (values: Workout) => {
     handleClose();
     if (typeForm === "edit" && selected.id) {
-      const id = selected.id;
-      return updateWorkouts({ id, workout: values });
+      return updateWorkouts({ id: selected.id, workout: values });
     }
     return createWorkout(values);
   };
@@ -71,12 +66,12 @@ const CommonForm: React.FC<CommonFormType> = ({
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.typeWorkout}
-        error={formik.touched.typeWorkout && Boolean(formik.errors.typeWorkout)}
+        error={formik.touched.typeWorkout && !!formik.errors.typeWorkout}
       >
         {typesWorkout.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
       </Select>
       <TextField
-        error={formik.touched.distance && Boolean(formik.errors.distance)}
+        error={formik.touched.distance && !!formik.errors.distance}
         helperText={
           formik.touched.distance ? formik.errors.distance : null
         }
@@ -89,7 +84,7 @@ const CommonForm: React.FC<CommonFormType> = ({
         name="distance"
       />
       <TextField
-        error={formik.touched.comment && Boolean(formik.errors.comment)}
+        error={formik.touched.comment && !!formik.errors.comment}
         id="outlined-multiline-static"
         multiline
         variant="outlined"

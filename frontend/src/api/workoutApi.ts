@@ -1,21 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { localServerURL } from "../../api/instance";
-import { Params, Workout } from "../../shared/types";
+import { getHeader, localServerURL } from "./instance";
+import { Params, Workout } from "../shared/types";
 
 export type RequestSuccess = {
   workouts: Workout[];
   totalPages: number;
   typesWorkout: string[];
 };
-
-export const getHeader = (headers: Headers) => {
-  headers.set("Access-Control-Allow-Origin", "*");
-  headers.set(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-  );
-  return headers;
-}
 
 export const workoutApi = createApi({
   reducerPath: "workoutApi",

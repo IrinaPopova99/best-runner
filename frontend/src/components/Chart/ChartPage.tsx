@@ -9,7 +9,7 @@ import Chart from "./Chart";
 import Select from "react-select";
 import { Workout } from "../../shared/types";
 import { useTranslation } from 'react-i18next';
-import { useGetAllWorkoutsQuery } from "../../redux/workouts/workoutApi";
+import { useGetAllWorkoutsQuery } from "../../api/workoutApi";
 
 const arrayOfWeeks = createArrayOfWeeks();
 const arrayOfWeekDays = getNameWeekDaysWithDistancePerDay();
