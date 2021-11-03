@@ -7,7 +7,7 @@ export type AppStateType = ReturnType<RootReducerType>;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export type NameWeekDaysWithDistancePerDay = { name: string; distance: number };
+export type NameWeekDaysWithDistancePerDay = { name: string; data: number };
 
 export type SortOrder = "desc" | "asc";
 

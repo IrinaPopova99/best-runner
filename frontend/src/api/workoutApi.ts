@@ -18,7 +18,7 @@ export const workoutApi = createApi({
   endpoints: (builder) => ({
     getAllWorkouts: builder.query<RequestSuccess, Params>({
       query: (params: Params | undefined) => ({
-        url: `?size=${params?.size || 5}&page=${params?.page || 1}${params?.filters ? `&filter=${params?.filters}` : ''}`,
+        url: `?size=${params?.size || 0}&page=${params?.page || 1}${params?.filters ? `&filter=${params?.filters}` : ''}`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Workouts" }],

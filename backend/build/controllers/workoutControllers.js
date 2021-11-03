@@ -1,16 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateWorkout = exports.deleteWorkout = exports.createWorkout = exports.getWorkoutById = exports.getTypesWorkout = exports.getWorkouts = void 0;
+exports.updateWorkout = exports.deleteWorkout = exports.createWorkout = exports.getWorkoutById = exports.getWorkouts = void 0;
 const uuid_1 = require("uuid");
+const errors_1 = require("../constants/errors");
 const workouts_1 = require("../data/workouts");
+const getFilteredData_1 = require("../utils/getFilteredData");
+const getPaginatedData_1 = require("../utils/getPaginatedData");
+const getTypesWorkout_1 = require("../utils/getTypesWorkout");
 const isIncomingIdsIncludesId_1 = require("../utils/isIncomingIdsIncludesId");
 const getWorkouts = (req, res) => {
     try {
         const { size, page, filter } = req.query;
-        const filteredWorkouts = getFilteredData(workouts_1.workouts, filter);
-        const workoutsWithPagination = getPaginatedData(filteredWorkouts, +size, +page);
+        const filteredWorkouts = (0, getFilteredData_1.getFilteredData)(workouts_1.workouts, filter);
+        const workoutsWithPagination = (0, getPaginatedData_1.getPaginatedData)(filteredWorkouts, +size, +page);
         const totalPages = !!(+size && +page) ? Math.ceil(filteredWorkouts.length / +size) : 1;
-        const typesWorkout = getTypesWorkout(workouts_1.workouts);
+        const typesWorkout = (0, getTypesWorkout_1.getWorkoutTypes)(workouts_1.workouts);
         res.send({
             workouts: workoutsWithPagination,
             totalPages,
@@ -19,28 +23,10 @@ const getWorkouts = (req, res) => {
     }
     catch (error) {
         console.log(error);
-        res.status(500).send("Something goes wrong");
+        res.status(500).send(errors_1.errorMessage);
     }
 };
 exports.getWorkouts = getWorkouts;
-function getFilteredData(data, filter) {
-    if (filter) {
-        return data.filter((item) => filter.includes(item.typeWorkout));
-    }
-    return data;
-}
-function getPaginatedData(data, size, page) {
-    if (size && page) {
-        return data.slice(size * (page - 1), size * page);
-    }
-    return data;
-}
-function getTypesWorkout(workouts) {
-    const typesWorkout = new Set();
-    workouts.forEach((item) => typesWorkout.add(item.typeWorkout));
-    return Array.from(typesWorkout);
-}
-exports.getTypesWorkout = getTypesWorkout;
 const getWorkoutById = (req, res) => {
     try {
         const { id } = req.params;
@@ -48,41 +34,38 @@ const getWorkoutById = (req, res) => {
         res.send(foundWorkout);
     }
     catch (error) {
-        res.status(500).send();
+        res.status(500).send(errors_1.errorMessage);
     }
 };
 exports.getWorkoutById = getWorkoutById;
 const createWorkout = (req, res) => {
     try {
-        let workout = req.body;
+        const workout = req.body;
         const workoutWithId = Object.assign(Object.assign({}, workout), { id: (0, uuid_1.v4)() });
         workouts_1.workouts.push(workoutWithId);
         res.send(workoutWithId);
     }
     catch (error) {
-        res.status(500).send();
+        res.status(500).send(errors_1.errorMessage);
     }
 };
 exports.createWorkout = createWorkout;
 const deleteWorkout = (req, res) => {
     try {
         const ids = req.params.id.split(",");
-        console.log(ids);
         const indexesForDeleting = workouts_1.workouts.map(function (workout, i) {
             if ((0, isIncomingIdsIncludesId_1.isIncomingIdsIncludesId)(workout.id, ids))
                 return i;
         });
-        console.log(indexesForDeleting);
         indexesForDeleting.forEach((index) => {
             if (index || index === 0) {
                 workouts_1.workouts.splice(index, 1);
             }
         });
-        console.log(workouts_1.workouts.length);
         res.send(workouts_1.workouts);
     }
     catch (error) {
-        res.status(500).send();
+        res.status(500).send(errors_1.errorMessage);
     }
 };
 exports.deleteWorkout = deleteWorkout;
@@ -97,12 +80,12 @@ const updateWorkout = (req, res) => {
             workout.typeWorkout = typeWorkout;
         if (distance)
             workout.distance = distance;
-        if (comment)
+        if (comment || comment === '')
             workout.comment = comment;
         res.send(workout);
     }
     catch (error) {
-        res.status(500).send();
+        res.status(500).send(errors_1.errorMessage);
     }
 };
 exports.updateWorkout = updateWorkout;
