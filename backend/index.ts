@@ -1,17 +1,15 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import workoutsRouters from './routes/workout.js';
-import cors from 'cors';
+import MongoDB from './MongoDB';
+import Express from './Express';
 
-const app = express();
+const app = new Express().app;
+const db = new MongoDB();
+
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({origin: '*'}));
+console.log(process.env)
 
-app.use(bodyParser.json());
-
-app.use('/workout', workoutsRouters);
-
-app.get('/', (req, res) => res.send('hello homepage'));
-
-app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
+db.connect()
+    .then((res) => {
+        app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
+    })
+    .catch((err) => console.log(err));

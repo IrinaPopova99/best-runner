@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const localServerURL = "http://localhost:5000/workout/";
+export const localServerURL = "http://api.bestrunner.localhost/workout/";
 export const vercelServerURL = "https://bestrunnerapp.vercel.app/workout/";
 
 export const getHeader = (headers: Headers) => {

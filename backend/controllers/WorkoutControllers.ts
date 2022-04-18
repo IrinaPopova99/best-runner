@@ -5,6 +5,7 @@ import { getFilteredData } from "../utils/getFilteredData";
 import { getPaginatedData } from "../utils/getPaginatedData";
 import { getWorkoutTypes } from "../utils/getTypesWorkout";
 import { isIncomingIdsIncludesId } from "../utils/isIncomingIdsIncludesId";
+import WorkoutModel from '../models/WorkoutModel';
 
 export const getWorkouts = (req, res) => {
   try {
@@ -43,12 +44,45 @@ export const getWorkoutById = (req, res) => {
 
 export const createWorkout = (req, res) => {
   try {
-    const workout = req.body;
-    const workoutWithId = { ...workout, id: uuid4() };
+    const body = req.body
+    if (!body) {
+      return res.status(400).json({
+          success: false,
+          error: 'You must provide a movie',
+      })
+  }
 
-    workouts.push(workoutWithId);
+  const workout = new WorkoutModel(body)
+  const workoutManual = new WorkoutModel({
+    
+  })
 
-    res.send(workoutWithId);
+  console.log(workout);
+
+  if (!workout) {
+      return res.status(400).json({ success: false, error: 'Workout was not created!' })
+  }
+
+  workout
+      .save()
+      .then(() => {
+          return res.status(201).json({
+              success: true,
+              id: workout._id,
+              message: 'Workout created!',
+          })
+      })
+      .catch(error => {
+          return res.status(400).json({
+              error,
+              message: 'Workout was not created!',
+          })
+      })
+    // const workoutWithId = { ...workout, id: uuid4() };
+
+    // workouts.push(workoutWithId);
+
+    // res.send(workoutWithId);
   } catch (error) {
     res.status(500).send(errorMessage);
   }

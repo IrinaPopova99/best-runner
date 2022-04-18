@@ -1,0 +1,6 @@
+{
+    "watch": [".", "openAPI"],
+    "ext": "ts,yaml",
+    "ignore": ["./**/*.spec.ts"],
+    "exec": "ts-node ./index.ts"
+}

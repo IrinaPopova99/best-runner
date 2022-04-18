@@ -5,7 +5,7 @@ import {
   getWorkouts,
   updateWorkout,
   getWorkoutById,
-} from "../controllers/workoutControllers.js";
+} from "../controllers/WorkoutControllers.js";
 
 const router = express.Router();
 

@@ -56,6 +56,7 @@ export const WorkoutsTable: React.FC = () => {
     isLoading,
     error = {},
   } = useGetAllWorkoutsQuery({ page, size: 5, filters: selectedFilters });
+
   const [deleteWorkouts] = useDeleteWorkoutsMutation();
 
   const workouts = useMemo(

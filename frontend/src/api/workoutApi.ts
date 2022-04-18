@@ -18,7 +18,9 @@ export const workoutApi = createApi({
   endpoints: (builder) => ({
     getAllWorkouts: builder.query<RequestSuccess, Params>({
       query: (params: Params | undefined) => ({
-        url: `?size=${params?.size || 0}&page=${params?.page || 1}${params?.filters ? `&filter=${params?.filters}` : ''}`,
+        url: `?size=${params?.size || 0}&page=${params?.page || 1}${
+          params?.filters ? `&filter=${params?.filters}` : ""
+        }`,
         method: "GET",
       }),
       providesTags: () => [{ type: "Workouts" }],
@@ -30,7 +32,10 @@ export const workoutApi = createApi({
       }),
       invalidatesTags: () => [{ type: "Workouts" }],
     }),
-    updateWorkout: builder.mutation<RequestSuccess, Partial<{ id: string; workout: Workout }>>({
+    updateWorkout: builder.mutation<
+      RequestSuccess,
+      Partial<{ id: string; workout: Workout }>
+    >({
       query: ({ id, workout }) => ({
         url: `${id}`,
         method: "PATCH",
