@@ -10,7 +10,6 @@ export const validate =
       });
       return next();
     } catch (err: any) {
-      console.log(err.path);
       return res
         .status(500)
         .json({

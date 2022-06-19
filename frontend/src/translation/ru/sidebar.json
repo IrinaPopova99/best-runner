@@ -1,4 +1,6 @@
 {
   "chart": "График",
-  "table": "Таблица"
+  "table": "Таблица",
+  "signin": "Sign in",
+  "signup": "Sign up"
 }

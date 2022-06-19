@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middlewares/auth.js";
 import {
   createWorkout,
   deleteWorkout,
@@ -9,14 +10,14 @@ import {
 
 const router = express.Router();
 
-router.get("/", getWorkouts);
+router.get("/", verifyToken, getWorkouts);
 
-router.post("/", createWorkout);
+router.post("/", verifyToken, createWorkout);
 
-router.get("/:id", getWorkoutById);
+router.get("/:id", verifyToken, getWorkoutById);
 
-router.delete("/:id", deleteWorkout);
+router.delete("/:id", verifyToken, deleteWorkout);
 
-router.patch("/:id", updateWorkout);
+router.patch("/:id", verifyToken, updateWorkout);
 
 export default router;

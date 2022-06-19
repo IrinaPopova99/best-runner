@@ -12,8 +12,9 @@ export const workoutApi = createApi({
   reducerPath: "workoutApi",
   tagTypes: ["Workouts"],
   baseQuery: fetchBaseQuery({
-    baseUrl: localServerURL,
+    baseUrl: `${localServerURL}workout/`,
     prepareHeaders: (headers) => getHeader(headers),
+    credentials: 'include',
   }),
   endpoints: (builder) => ({
     getAllWorkouts: builder.query<RequestSuccess, Params>({

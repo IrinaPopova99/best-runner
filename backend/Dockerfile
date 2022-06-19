@@ -5,4 +5,4 @@ COPY . .
 RUN yarn cache clean
 RUN yarn install
 RUN yarn build
-CMD ["yarn", "start"]
+CMD ["yarn", "build", "start"]

@@ -57,8 +57,6 @@ export const createWorkout = (req, res) => {
     
   })
 
-  console.log(workout);
-
   if (!workout) {
       return res.status(400).json({ success: false, error: 'Workout was not created!' })
   }

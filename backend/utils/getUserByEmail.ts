@@ -8,9 +8,7 @@ export const getUserByEmail = async (
   next: NextFunction
 ): Promise<Response | void> => {
   try {
-    console.log('check email');
     const res = await UserModel.findOne({ email: req.body.email });
-    console.log(res);
     return next();
   } catch (err) {
     return next(new Error("This email has already taken"));

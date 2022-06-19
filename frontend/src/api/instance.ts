@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const localServerURL = "http://api.bestrunner.localhost/workout/";
+export const localServerURL = "http://api.bestrunner.localhost/";
 export const vercelServerURL = "https://bestrunnerapp.vercel.app/workout/";
 
 export const getHeader = (headers: Headers) => {
@@ -9,5 +9,6 @@ export const getHeader = (headers: Headers) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE, OPTIONS"
   );
+  headers.set('Content-Type', 'application/json');
   return headers;
 }
